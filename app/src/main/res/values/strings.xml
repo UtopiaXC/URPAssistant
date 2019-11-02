@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_table">Time Table</string>
     <string name="title_center">Notifications</string>
+    <string name="has_update">Latest version is available,please download or go to GitHub for updates.</string>
+    <string name="download_newversion">Download</string>
+    <string name="cancel">Cancel</string>
+    <string name="goto_github">Open URL</string>
 </resources>
