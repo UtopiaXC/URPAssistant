@@ -72,7 +72,7 @@ public class ActivityMain extends AppCompatActivity {
                 PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
                 String version = packInfo.versionName;
 
-                String latest_version = getHTML("https://raw.githubusercontent.com/UtopiaXC/QuestionsPlusPlus/master/version_control_teacher");
+                String latest_version = getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control");
 
 
                 if (latest_version.equals("error")) {
