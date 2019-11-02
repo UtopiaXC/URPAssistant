@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">URP助理</string>
+    <string name="title_home">主页</string>
+    <string name="title_table">课程表</string>
+    <string name="title_center">中心</string>
+</resources>
