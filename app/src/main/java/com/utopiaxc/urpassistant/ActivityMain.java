@@ -72,7 +72,7 @@ public class ActivityMain extends AppCompatActivity {
                 PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
                 String version = packInfo.versionName;
 
-                String latest_version = getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control");
+                String latest_version = getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control_debug");
 
 
                 if (latest_version.equals("error")) {
@@ -101,7 +101,7 @@ public class ActivityMain extends AppCompatActivity {
                 builder.setPositiveButton(getText(R.string.download_newversion), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/UtopiaXC/QuestionsPlusPlus/blob/master/app-release.apk?raw=true")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/app/debug/app-debug.apk")));
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { //设定“取消"按钮的功能
@@ -113,7 +113,7 @@ public class ActivityMain extends AppCompatActivity {
                 builder.setNeutralButton(getText(R.string.goto_github), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/UtopiaXC/QuestionsPlusPlus")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/UtopiaXC/URPAssistant")));
                     }
                 });
                 builder.show();
