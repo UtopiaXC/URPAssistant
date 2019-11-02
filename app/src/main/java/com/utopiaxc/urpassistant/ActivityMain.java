@@ -89,6 +89,7 @@ public class ActivityMain extends AppCompatActivity {
         }
     };
 
+
     @SuppressLint("HandlerLeak")
     private Handler messageHandler = new Handler() {
         @Override
