@@ -21,17 +21,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class ActivityMain extends AppCompatActivity {
 
     private FragmentHome fragmentHome;
     private String updateCheak="";
     private FuctionsPublicBasic basicFuctions = new FuctionsPublicBasic();
 
+    //底部按钮监听
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,6 +45,7 @@ public class ActivityMain extends AppCompatActivity {
         }
     };
 
+    //程序入口
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +55,7 @@ public class ActivityMain extends AppCompatActivity {
 
         fragmentHome = new FragmentHome();
 
+        //设置主fragment
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -83,7 +81,7 @@ public class ActivityMain extends AppCompatActivity {
                 builder.setPositiveButton(getText(R.string.download_newversion), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/app/debug/app-debug.apk")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/UtopiaXC/URPAssistant/blob/master/app/debug/app-debug.apk?raw=true")));
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { //设定“取消"按钮的功能
