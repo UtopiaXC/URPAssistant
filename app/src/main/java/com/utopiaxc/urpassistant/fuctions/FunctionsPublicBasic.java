@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FuctionsPublicBasic {
+public class FunctionsPublicBasic {
     //爬取网页源码方法
     public String getHTML(String address) {
         System.out.println(address);

@@ -10,8 +10,10 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.utopiaxc.urpassistant.fragments.FragmentCenter;
 import com.utopiaxc.urpassistant.fragments.FragmentHome;
-import com.utopiaxc.urpassistant.fuctions.FuctionsPublicBasic;
+import com.utopiaxc.urpassistant.fragments.FragmentTimeTable;
+import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -24,8 +26,10 @@ import android.view.MenuItem;
 public class ActivityMain extends AppCompatActivity {
 
     private FragmentHome fragmentHome;
+    private FragmentTimeTable fragmentTimeTable;
+    private FragmentCenter fragmentCenter;
     private String updateCheak="";
-    private FuctionsPublicBasic basicFuctions = new FuctionsPublicBasic();
+    private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
 
     //底部按钮监听
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -53,9 +57,8 @@ public class ActivityMain extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragmentHome = new FragmentHome();
-
         //设置主fragment
+        fragmentHome = new FragmentHome();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -111,7 +114,7 @@ public class ActivityMain extends AppCompatActivity {
                 String version = packInfo.versionName;
 
 
-                String latest_version = basicFuctions.getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control_debug");
+                String latest_version = basicFunctions.getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control_debug");
 
 
                 if (latest_version.equals("error")) {
