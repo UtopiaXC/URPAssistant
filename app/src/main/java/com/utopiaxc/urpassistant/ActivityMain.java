@@ -39,10 +39,29 @@ public class ActivityMain extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    fragmentHome=new FragmentHome();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frameLayout, fragmentHome)
+                            .commitAllowingStateLoss();
                     return true;
+
                 case R.id.navigation_table:
+                    fragmentTimeTable=new FragmentTimeTable();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frameLayout, fragmentTimeTable)
+                            .commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_notifications:
+                    fragmentCenter=new FragmentCenter();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frameLayout, fragmentCenter)
+                            .commitAllowingStateLoss();
                     return true;
             }
             return false;
@@ -77,14 +96,14 @@ public class ActivityMain extends AppCompatActivity {
     private Handler messageHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (updateCheak.equals(getText(R.string.has_update))) {
+            if (updateCheak.equals((String)getText(R.string.has_update))) {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMain.this);
                 builder.setTitle(getString(R.string.download_newversion));
                 builder.setMessage(getString(R.string.has_update));
                 builder.setPositiveButton(getText(R.string.download_newversion), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/UtopiaXC/URPAssistant/blob/master/app/debug/app-debug.apk?raw=true")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("www.utopiaxc.com/Version_Control/URPAssistant_debug.apk")));
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { //设定“取消"按钮的功能
@@ -114,7 +133,7 @@ public class ActivityMain extends AppCompatActivity {
                 String version = packInfo.versionName;
 
 
-                String latest_version = basicFunctions.getHTML("https://raw.githubusercontent.com/UtopiaXC/URPAssistant/master/version_control_debug");
+                String latest_version = basicFunctions.getHTML("www.utopiaxc.com/Version_Control/URPAssistant_debug.txt");
 
 
                 if (latest_version.equals("error")) {

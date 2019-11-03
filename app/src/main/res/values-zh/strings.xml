@@ -7,6 +7,27 @@
     <string name="has_update">发现新版本，请下载或前往GitHub获取更新</string>
     <string name="download_newversion">下载</string>
     <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
     <string name="goto_github">打开链接</string>
-
+    <string name="settings">设置</string>
+    <string name="about">关于</string>
+    <string name="developer">开发团队</string>
+    <string name="update_check">检查更新</string>
+    <string name="update_checking">正在检查更新，请稍等</string>
+    <string name="net_error">网络错误！请检查</string>
+    <string name="no_update">恭喜，您正在使用最新版本的应用</string>
+    <string name="congratulations">恭喜</string>
+    <string name="again_please">抱歉，请重试</string>
+    <string name="unknow_error">未知错误</string>
+    <string name="open_source_license">开源许可证</string>
+    <string name="tag_license">优秀的项目离不开开源项目的支持，感谢你们！</string>
+    <string name="update_log">更新日志</string>
+    <string name="update_log_info">URPAssistant\n
+        开发快照版本\n
+        v1.0.1-beta01\n
+        更新内容\n
+        #1 正在进行UI开发\n
+        #2 正在进行爬虫开发\n</string>
+    <string name="update_log_tag">最后一次更新内容</string>
+    <string name="utopiaxc">UtopiaXC</string>
 </resources>

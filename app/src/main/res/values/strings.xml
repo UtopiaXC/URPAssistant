@@ -6,5 +6,22 @@
     <string name="has_update">Latest version is available,please download or go to GitHub for updates.</string>
     <string name="download_newversion">Download</string>
     <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
     <string name="goto_github">Open URL</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="developer">Developer</string>
+    <string name="update_check">Update Check</string>
+    <string name="update_checking">Update checking, please wait.</string>
+    <string name="net_error">Network error, please check.</string>
+    <string name="no_update">Congratulations, now you are using the latest application.</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="again_please">Sorry, please try again!</string>
+    <string name="unknow_error">Unknown Error</string>
+    <string name="open_source_license">Open Source License</string>
+    <string name="tag_license">Excellent projects can not be separated from the support of open source projects, thank you!</string>
+    <string name="update_log">Update Log</string>
+    <string name="update_log_info">Please Change Your System Language To Chinese To Read This Message!</string>
+    <string name="update_log_tag">Latest Update Content</string>
+    <string name="utopiaxc">UtopiaXC</string>
 </resources>

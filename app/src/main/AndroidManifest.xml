@@ -4,7 +4,7 @@
     package="com.utopiaxc.urpassistant">
 
     <dist:module dist:instant="true" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+
+        <activity android:name=".activities.ActivityAbout" android:label="@string/about"/>
+        <activity android:name=".activities.ActivityLicence" android:label="@string/open_source_license"/>
+   </application>
 
 </manifest>
