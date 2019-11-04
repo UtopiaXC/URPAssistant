@@ -30,4 +30,14 @@
         #2 正在进行爬虫开发\n</string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
+    <string name="user">用户</string>
+    <string name="user_message">用户账号</string>
+    <string name="urp_adress">URP 网址</string>
+    <string name="urp_account">URP 账号</string>
+    <string name="user_name">账户名</string>
+    <string name="password">密码</string>
+    <string name="test">测试账户及URP地址</string>
+    <string name="warning">警告！</string>
+    <string name="warning_message">请确保您已连接校园网或学校VPN或您处于可打开URP教务系统的环境下，否则测试将会失败</string>
+    <string name="start">开始</string>
 </resources>

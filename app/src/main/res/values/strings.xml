@@ -2,7 +2,7 @@
     <string name="app_name">URPAssistant</string>
     <string name="title_home">Home</string>
     <string name="title_table">Time Table</string>
-    <string name="title_center">Notifications</string>
+    <string name="title_center">Center</string>
     <string name="has_update">Latest version is available,please download or go to GitHub for updates.</string>
     <string name="download_newversion">Download</string>
     <string name="cancel">Cancel</string>
@@ -24,4 +24,14 @@
     <string name="update_log_info">Please Change Your System Language To Chinese To Read This Message!</string>
     <string name="update_log_tag">Latest Update Content</string>
     <string name="utopiaxc">UtopiaXC</string>
+    <string name="user">User</string>
+    <string name="user_message">User Account</string>
+    <string name="urp_adress">URP Address</string>
+    <string name="urp_account">URP Account</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="test">Test Account And Address</string>
+    <string name="warning">Warning!</string>
+    <string name="warning_message">Please make sure you are under School network or you have already under the environment to open your school\'s URP system.</string>
+    <string name="start">Start</string>
 </resources>

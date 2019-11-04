@@ -8,6 +8,14 @@
     <io.github.varenyzc.opensourceaboutpages.MessageCard
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="@string/user"
+        android:id="@+id/center_userCard">
+
+    </io.github.varenyzc.opensourceaboutpages.MessageCard>
+
+    <io.github.varenyzc.opensourceaboutpages.MessageCard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:title="@string/title_center"
         android:id="@+id/center_selectionCard">
 

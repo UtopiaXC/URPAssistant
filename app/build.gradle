@@ -7,7 +7,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.1-beta01"
+        versionName "1.0.1-beta03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -29,5 +29,6 @@ dependencies {
 
     //开源库
     implementation 'com.github.varenyzc:OpenSourceAboutPage:1.2'
+    implementation  'org.jsoup:jsoup:1.10.3'
 
 }

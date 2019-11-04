@@ -103,7 +103,7 @@ public class ActivityMain extends AppCompatActivity {
                 builder.setPositiveButton(getText(R.string.download_newversion), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("www.utopiaxc.com/Version_Control/URPAssistant_debug.apk")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.utopiaxc.com/Version_Control/URPAssistant_debug.apk")));
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { //设定“取消"按钮的功能
@@ -133,7 +133,7 @@ public class ActivityMain extends AppCompatActivity {
                 String version = packInfo.versionName;
 
 
-                String latest_version = basicFunctions.getHTML("www.utopiaxc.com/Version_Control/URPAssistant_debug.txt");
+                String latest_version = basicFunctions.getHTML("http://www.utopiaxc.com/Version_Control/URPAssistant_debug.txt");
 
 
                 if (latest_version.equals("error")) {
