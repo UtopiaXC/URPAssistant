@@ -40,4 +40,9 @@
     <string name="warning">警告！</string>
     <string name="warning_message">请确保您已连接校园网或学校VPN或您处于可打开URP教务系统的环境下，否则测试将会失败</string>
     <string name="start">开始</string>
+    <string name="testing">测试中，请稍候</string>
+    <string name="configured">（已配置）</string>
+    <string name="config_useful">配置有效</string>
+    <string name="config_useless">配置无效！请确保您在可连接校园网的网络环境下并保证您的账号密码正确</string>
+    <string name="address_alert">请输入完整网址，其中应包含\"http://\"或\"https://\"</string>
 </resources>

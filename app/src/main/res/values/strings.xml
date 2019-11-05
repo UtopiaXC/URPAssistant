@@ -34,4 +34,9 @@
     <string name="warning">Warning!</string>
     <string name="warning_message">Please make sure you are under School network or you have already under the environment to open your school\'s URP system.</string>
     <string name="start">Start</string>
+    <string name="testing">Testing</string>
+    <string name="configured">(Configured)</string>
+    <string name="config_useful">Config is useful</string>
+    <string name="config_useless">Config is fail to connect to your URP account.Please make sure you are under the school-network available environment and make sure your username and password are correct.</string>
+    <string name="address_alert">Please enter the address completely,it should content\"http://\" or \"https://\"</string>
 </resources>

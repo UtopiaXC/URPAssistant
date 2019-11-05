@@ -51,27 +51,18 @@ public class FunctionsPublicBasic {
     public boolean testURP(String address,String username,String password){
         try {
 
-            Connection conn = Jsoup.connect(address);
-            conn.method(Connection.Method.GET);
-            conn.followRedirects(false);
-            Connection.Response response = conn.execute();
-            System.out.println(response.cookies());
+            String userAgent=".userAgent(\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36\")";
 
-            Connection.Response res = Jsoup.connect(address)
+            Connection.Response response = Jsoup.connect(address+"/loginAction.do")
+                    .userAgent(userAgent)
                     .data("zjh", username, "mm", password)
                     .method(Connection.Method.POST)
                     .execute();
 
-            Map<String, String> loginCookies = res.cookies();
-
-            Document doc = Jsoup.connect(address+"/xkAction.do?actionType=17")
-                    .cookies(loginCookies)
-                    .get();
+            Document doc = response.parse();
             System.out.println(doc);
 
             String line=doc.toString();
-
-            System.out.println(line);
 
             String reg = "setTimeout";
             Pattern pattern = Pattern.compile(reg);

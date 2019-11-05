@@ -76,12 +76,10 @@ public class FragmentCenter extends Fragment {
                         final EditText login_name=linearLayout.findViewById(R.id.login_username);
                         final EditText login_password=linearLayout.findViewById(R.id.login_password);
                         Boolean isSet=sharedPreferences.getBoolean("UserIsSet",false);
-                        if(isSet.equals(true)){
-                            login_name.setHint("账号(已配置)");
-                            login_password.setHint("密码(已配置)");
-                        }
-                        setAccount.setTitle(getString(R.string.urp_account))
-                                .setView(linearLayout)
+                        setAccount.setTitle(getString(R.string.urp_account));
+                        if(isSet.equals(true))
+                            setAccount.setTitle(getActivity().getString(R.string.urp_account)+getActivity().getString(R.string.configured));
+                        setAccount.setView(linearLayout)
                                 .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -109,14 +107,14 @@ public class FragmentCenter extends Fragment {
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
                     public void onClick() {
-                        final AlertDialog.Builder setAccount = new AlertDialog.Builder(getActivity());
+                        final AlertDialog.Builder setURP = new AlertDialog.Builder(getActivity());
                         LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_address, null);  //从另外的布局关联组件
                         final EditText address=linearLayout.findViewById(R.id.urp_address);
                         Boolean isSet=sharedPreferences.getBoolean("AddressIsSet",false);
-                        if(isSet.equals(true)){
-                            address.setHint("地址(已配置)");
-                        }
-                        setAccount.setTitle(getString(R.string.urp_account))
+                        setURP.setTitle(getString(R.string.urp_account));
+                        if(isSet.equals(true))
+                            setURP.setTitle(getActivity().getString(R.string.urp_adress)+getActivity().getString(R.string.configured));
+                        setURP.setMessage(getActivity().getString(R.string.address_alert))
                                 .setView(linearLayout)
                                 .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                     @Override
@@ -156,7 +154,7 @@ public class FragmentCenter extends Fragment {
                                 .setPositiveButton(getActivity().getString(R.string.start), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        testDialog = ProgressDialog.show(getActivity(), getText(R.string.update_check), getString(R.string.update_checking), true);
+                                        testDialog = ProgressDialog.show(getActivity(), getText(R.string.test), getString(R.string.testing), true);
                                         new Thread(new check()).start();
                                     }
                                 })
@@ -218,7 +216,7 @@ public class FragmentCenter extends Fragment {
             testDialog.dismiss();
             if(isUseful){
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Good")
+                        .setTitle(getActivity().getString(R.string.config_useful))
                         .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -229,7 +227,7 @@ public class FragmentCenter extends Fragment {
             }
             else{
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Sorry")
+                        .setTitle(getActivity().getString(R.string.config_useless))
                         .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
