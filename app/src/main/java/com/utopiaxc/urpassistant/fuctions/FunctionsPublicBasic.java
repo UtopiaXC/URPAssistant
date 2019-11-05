@@ -3,6 +3,7 @@ package com.utopiaxc.urpassistant.fuctions;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -32,7 +33,6 @@ public class FunctionsPublicBasic {
 
     //爬取网页源码方法
     public String getHTML(String address) {
-        System.out.println(address);
         URL url;
         int responsecode;
         HttpURLConnection urlConnection;
@@ -104,7 +104,6 @@ public class FunctionsPublicBasic {
             if (!getDocument(address + "/xkAction.do?actionType=17"))
                 return false;
             String line = document.toString();
-            System.out.println(document.toString());
 
             String reg = "setTimeout";
             Pattern pattern = Pattern.compile(reg);
@@ -140,8 +139,9 @@ public class FunctionsPublicBasic {
             String messages_last[] = new String[30];
 
             //数据库打开
-            SQLHelperTimeTable sql = new SQLHelperTimeTable(context, "URP");
+            SQLHelperTimeTable sql = new SQLHelperTimeTable(context, "URP",null,2);
             SQLiteDatabase sqliteDatabase = sql.getWritableDatabase();
+            sqliteDatabase.execSQL("delete from classes");
 
 
             //遍历每一课程
@@ -178,10 +178,6 @@ public class FunctionsPublicBasic {
                 for (int i = 11; i < 18; i++) {
                     if (messages[i].equals(";"))
                         messages[i] = "^";
-                }
-
-                for(int i=0;i<18;i++){
-                    System.out.println(i+messages[i]);
                 }
 
                 //处理上课周数信息
@@ -225,12 +221,23 @@ public class FunctionsPublicBasic {
                 values.put("Room",messages[17].replace(";", ""));
 
                 //插入数据表
-                sqliteDatabase.execSQL("delete from classes");
                 sqliteDatabase.insert("classes", null, values);
-                sqliteDatabase.close();
+
 
             }
 
+            //SQLit测试
+            /*
+            Cursor cursor = sqliteDatabase.query("classes", new String[]{"ClassName","Credit"}, null, null, null, null, null);
+            while(cursor.moveToNext())
+                System.out.println(cursor.getString(cursor.getColumnIndex("ClassName"))
+                +cursor.getString(cursor.getColumnIndex("Credit")));
+            cursor.close();
+            */
+
+
+
+            sqliteDatabase.close();
             document = null;
             return true;
         } catch (Exception e) {

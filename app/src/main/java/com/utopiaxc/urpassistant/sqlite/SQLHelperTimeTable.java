@@ -15,19 +15,10 @@ public class SQLHelperTimeTable extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    public SQLHelperTimeTable(Context context,String name,int version) {
-        this(context,name,null,version);
-    }
-
-    public SQLHelperTimeTable(Context context,String name) {
-        this(context, name, Version);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table "
-                + "user"
-                + " (ClassId text primary key, " +
+        String sql = "create table if not exists classes" +
+                "(ClassId text," +
                 "ClassName text, " +
                 "Credit text," +
                 "ClassAttribute text," +
