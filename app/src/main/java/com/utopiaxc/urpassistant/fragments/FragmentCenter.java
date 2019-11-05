@@ -66,7 +66,7 @@ public class FragmentCenter extends Fragment {
     private void setUserCenter(){
         //添加账户选框
         AboutPageMessageItem ItemUserCard_user=new AboutPageMessageItem(getActivity())
-                .setIcon(getActivity().getDrawable(R.drawable.settings))
+                .setIcon(getActivity().getDrawable(R.drawable.account))
                 .setMainText(getString(R.string.user_message))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
@@ -102,7 +102,7 @@ public class FragmentCenter extends Fragment {
 
         //添加地址选框
         AboutPageMessageItem ItemUserCard_address=new AboutPageMessageItem(getActivity())
-                .setIcon(getActivity().getDrawable(R.drawable.settings))
+                .setIcon(getActivity().getDrawable(R.drawable.address))
                 .setMainText(getString(R.string.urp_adress))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
@@ -135,9 +135,9 @@ public class FragmentCenter extends Fragment {
 
 
 
-
+        //添加测试选框
         AboutPageMessageItem ItemUserCard_test=new AboutPageMessageItem(getActivity())
-                .setIcon(getActivity().getDrawable(R.drawable.settings))
+                .setIcon(getActivity().getDrawable(R.drawable.test))
                 .setMainText(getString(R.string.test))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override

@@ -38,7 +38,7 @@
     <string name="password">密码</string>
     <string name="test">测试账户及URP地址</string>
     <string name="warning">警告！</string>
-    <string name="warning_message">请确保您已连接校园网或学校VPN或您处于可打开URP教务系统的环境下，否则测试将会失败</string>
+    <string name="warning_message">请确保您已连接校园网或学校VPN或您处于可打开URP教务系统的环境下，否则测试将会失败（这将会消耗一些时间，请耐心等待）</string>
     <string name="start">开始</string>
     <string name="testing">测试中，请稍候</string>
     <string name="configured">（已配置）</string>
