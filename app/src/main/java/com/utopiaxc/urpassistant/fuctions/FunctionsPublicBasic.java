@@ -3,25 +3,17 @@ package com.utopiaxc.urpassistant.fuctions;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -79,7 +71,7 @@ public class FunctionsPublicBasic {
     }
 
     //获取教务指定网页Doc的方法,document调用结束后请赋空
-    private Boolean getDocument(String address) {
+    private boolean getDocument(String address) {
         try {
             Connection.Response response = Jsoup.connect(address)
                     .userAgent(userAgent)
