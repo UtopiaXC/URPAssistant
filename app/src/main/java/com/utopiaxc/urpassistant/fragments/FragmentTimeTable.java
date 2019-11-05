@@ -1,15 +1,18 @@
 package com.utopiaxc.urpassistant.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.utopiaxc.urpassistant.R;
+import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
 public class FragmentTimeTable extends Fragment {
     //配置FragmentUI
@@ -21,9 +24,30 @@ public class FragmentTimeTable extends Fragment {
 
     //Fragment入口
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Button button=getActivity().findViewById(R.id.button_test);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new test()).start();
 
 
+            }
+        });
+
+    }
+
+    class test implements Runnable{
+
+        @Override
+        public void run() {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", getActivity().MODE_PRIVATE);
+            String address=sharedPreferences.getString("address","");
+            String username = sharedPreferences.getString("username","");
+            String password=sharedPreferences.getString("password","");
+            FunctionsPublicBasic function=new FunctionsPublicBasic();
+            function.setClassTableSQL(getActivity(),address,username,password);
+        }
     }
 }
