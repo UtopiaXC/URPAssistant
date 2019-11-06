@@ -24,10 +24,14 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         开发快照版本\n
-        v1.0.1-beta01\n
+        v1.0.1-beta06\n
         更新内容\n
-        #1 正在进行UI开发\n
-        #2 正在进行爬虫开发\n</string>
+        #1 添加教务账号及教务网站的功能\n
+        #2 添加了教务测试\n
+        #3 添加了主题功能（暂不支持热重载）\n
+        #4 添加了课程表布局\n
+        #5 完善了数据库支持\n
+        #6 综合框架设计完成\n</string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
     <string name="user">用户</string>
