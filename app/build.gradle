@@ -30,5 +30,6 @@ dependencies {
     //开源库
     implementation 'com.github.varenyzc:OpenSourceAboutPage:1.2'
     implementation  'org.jsoup:jsoup:1.10.3'
+    implementation  'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
 
 }
