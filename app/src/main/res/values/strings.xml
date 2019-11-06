@@ -45,4 +45,14 @@
     <string name="timetable_all_course_list">Whole list of course</string>
     <string name="theme">Theme</string>
     <string name="timetable_layout">Layout of timetable</string>
+    <string name="white">White(Not recommended)</string>
+    <string name="black">Black</string>
+    <string name="green">Green</string>
+    <string name="yellow">Yellow</string>
+    <string name="blue">Blue</string>
+    <string name="pink">Pink</string>
+    <string name="grey">Grey</string>
+    <string name="purple">Purple(Default)</string>
+    <string name="red">Red</string>
+    <string name="alert_theme">The theme will take effect after the app is restarted.</string>
 </resources>

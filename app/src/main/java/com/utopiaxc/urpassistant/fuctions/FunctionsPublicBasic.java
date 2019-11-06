@@ -14,14 +14,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FunctionsPublicBasic {
-    String userAgent = ".userAgent(\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36\")";
-    Map<String, String> Cookies = null;
-    Document document = null;
+    private String userAgent = ".userAgent(\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36\")";
+    private Map<String, String> Cookies = null;
+    private Document document = null;
 
     //爬取网页源码方法
     public String getHTML(String address) {
@@ -39,7 +40,7 @@ public class FunctionsPublicBasic {
             responsecode = urlConnection.getResponseCode();
             if (responsecode == 200) {
                 //得到输入流，即获得了网页的内容
-                reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
                 StringBuilder result = new StringBuilder();
                 while ((line = reader.readLine()) != null) {
                     result.append(line);

@@ -51,4 +51,14 @@
     <string name="timetable_all_course_list">全部课程列表</string>
     <string name="theme">主题</string>
     <string name="timetable_layout">课程表布局</string>
+    <string name="white">白色（不推荐）</string>
+    <string name="black">黑色</string>
+    <string name="green">绿色</string>
+    <string name="yellow">黄色</string>
+    <string name="blue">蓝色</string>
+    <string name="pink">粉色</string>
+    <string name="grey">灰色</string>
+    <string name="purple">紫色（默认）</string>
+    <string name="red">红色</string>
+    <string name="alert_theme">主题将在应用重启后生效</string>
 </resources>
