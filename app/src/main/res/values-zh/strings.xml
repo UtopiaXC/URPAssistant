@@ -31,7 +31,8 @@
         #3 添加了主题功能（暂不支持热重载）\n
         #4 添加了课程表布局\n
         #5 完善了数据库支持\n
-        #6 综合框架设计完成\n</string>
+        #6 综合框架设计完成\n
+        #7 升级了更新检查服务器以及下载服务（由原GitHub转为私人VPS）\n</string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
     <string name="user">用户</string>
