@@ -6,19 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_test"
+    <TextView
+        android:id="@+id/textView_table_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/table_alert"
+        android:textSize="20sp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:textAlignment="center"
+        />
 
     <com.dd.processbutton.FlatButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Flat Button"
+        android:text="@string/timetable_chart"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:textColor="@android:color/white"
-        custom:pb_colorNormal="@android:color/holo_blue_light"
-        custom:pb_colorPressed="@android:color/holo_blue_dark" />
+        custom:pb_colorNormal="@color/colorPrimary"
+        custom:pb_colorPressed="@color/colorPrimaryDark"/>
+
+    <com.dd.processbutton.FlatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timetable_list"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:textColor="@android:color/white"
+        custom:pb_colorNormal="@color/colorPrimary"
+        custom:pb_colorPressed="@color/colorPrimaryDark" />
+
+    <com.dd.processbutton.FlatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timetable_all_course_list"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:textColor="@android:color/white"
+        custom:pb_colorNormal="@color/colorPrimary"
+        custom:pb_colorPressed="@color/colorPrimaryDark" />
 
 
 </LinearLayout>

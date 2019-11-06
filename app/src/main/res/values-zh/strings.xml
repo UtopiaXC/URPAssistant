@@ -45,4 +45,8 @@
     <string name="config_useful">配置有效</string>
     <string name="config_useless">配置无效！请确保您在可连接校园网的网络环境下并保证您的账号密码正确</string>
     <string name="address_alert">请输入完整网址，其中应包含\"http://\"或\"https://\"</string>
+    <string name="table_alert">请选择你的课程表布局方式\n（您也可以稍后在设置中进行更改）</string>
+    <string name="timetable_chart">每周二维图表布局</string>
+    <string name="timetable_list">每日列表布局</string>
+    <string name="timetable_all_course_list">全部课程列表</string>
 </resources>

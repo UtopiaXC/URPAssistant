@@ -1,6 +1,7 @@
 package com.utopiaxc.urpassistant.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ public class ActivityLicence extends AppCompatActivity {
     //Activity入口
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences=getSharedPreferences("Theme",MODE_PRIVATE);
+        int theme=sharedPreferences.getInt("theme",R.style.AppTheme);
+        setTheme(theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_licence);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
@@ -44,6 +48,23 @@ public class ActivityLicence extends AppCompatActivity {
                     }
                 });
         messageCard.addMessageItem(ItemLicence_AboutPage);
+
+        AboutPageMessageItem ItemLicence_AndroidProcessButton=new AboutPageMessageItem(this)
+                .setIcon(getDrawable(R.drawable.developer))
+                .setMainText("Android Process Button")
+                .setDescriptionText("Powered By dmytrodanylyk")
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://github.com/dmytrodanylyk/android-process-button/blob/master/LICENSE.md");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        messageCard.addMessageItem(ItemLicence_AndroidProcessButton);
     }
 
     //返回键

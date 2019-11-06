@@ -39,4 +39,8 @@
     <string name="config_useful">Config is useful</string>
     <string name="config_useless">Config is fail to connect to your URP account.Please make sure you are under the school-network available environment and make sure your username and password are correct.</string>
     <string name="address_alert">Please enter the address completely,it should content\"http://\" or \"https://\"</string>
+    <string name="table_alert">Please choose a way how to show the timetable\n(you can change it in settings later)</string>
+    <string name="timetable_chart">Weekly Two-dimensional chart</string>
+    <string name="timetable_list">Daily List</string>
+    <string name="timetable_all_course_list">Whole list of course</string>
 </resources>

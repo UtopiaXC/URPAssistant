@@ -26,28 +26,6 @@ public class FragmentTimeTable extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button button=getActivity().findViewById(R.id.button_test);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new test()).start();
 
-
-            }
-        });
-
-    }
-
-    class test implements Runnable{
-
-        @Override
-        public void run() {
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", getActivity().MODE_PRIVATE);
-            String address=sharedPreferences.getString("address","");
-            String username = sharedPreferences.getString("username","");
-            String password=sharedPreferences.getString("password","");
-            FunctionsPublicBasic function=new FunctionsPublicBasic();
-            function.setClassTableSQL(getActivity(),address,username,password);
-        }
     }
 }
