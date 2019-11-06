@@ -43,4 +43,6 @@
     <string name="timetable_chart">Weekly Two-dimensional chart</string>
     <string name="timetable_list">Daily List</string>
     <string name="timetable_all_course_list">Whole list of course</string>
+    <string name="theme">Theme</string>
+    <string name="timetable_layout">Layout of timetable</string>
 </resources>

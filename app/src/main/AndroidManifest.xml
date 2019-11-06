@@ -27,6 +27,7 @@
 
         <activity android:name=".activities.ActivityAbout" android:label="@string/about"/>
         <activity android:name=".activities.ActivityLicence" android:label="@string/open_source_license"/>
+        <activity android:name=".activities.ActivitySettings" android:label="@string/settings"/>
    </application>
 
 </manifest>

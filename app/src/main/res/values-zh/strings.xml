@@ -49,4 +49,6 @@
     <string name="timetable_chart">每周二维图表布局</string>
     <string name="timetable_list">每日列表布局</string>
     <string name="timetable_all_course_list">全部课程列表</string>
+    <string name="theme">主题</string>
+    <string name="timetable_layout">课程表布局</string>
 </resources>

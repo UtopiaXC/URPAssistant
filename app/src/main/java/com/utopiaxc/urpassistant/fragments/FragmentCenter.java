@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.activities.ActivityAbout;
+import com.utopiaxc.urpassistant.activities.ActivitySettings;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
@@ -175,7 +176,8 @@ public class FragmentCenter extends Fragment {
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
                     public void onClick() {
-
+                        Intent intent = new Intent(getActivity(), ActivitySettings.class);
+                        startActivity(intent);
                     }
                 });
         selectionCenter.addMessageItem(ItemSelectionCenter_settings);
