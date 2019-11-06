@@ -178,6 +178,7 @@ public class FragmentCenter extends Fragment {
                     public void onClick() {
                         Intent intent = new Intent(getActivity(), ActivitySettings.class);
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
         selectionCenter.addMessageItem(ItemSelectionCenter_settings);

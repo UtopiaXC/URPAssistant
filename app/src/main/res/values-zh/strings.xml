@@ -24,15 +24,16 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         开发快照版本\n
-        v1.0.1-beta06\n
+        v1.0.1-beta07\n
         更新内容\n
-        #1 添加教务账号及教务网站的功能\n
-        #2 添加了教务测试\n
-        #3 添加了主题功能（暂不支持热重载）\n
-        #4 添加了课程表布局\n
-        #5 完善了数据库支持\n
-        #6 综合框架设计完成\n
-        #7 升级了更新检查服务器以及下载服务（由原GitHub转为私人VPS）\n
+        #1 添加教务账号及教务网站的功能（beta03）\n
+        #2 添加了教务测试（beta03）\n
+        #3 添加了主题功能（beta06）\n
+        #4 添加了课程表布局（beta06）\n
+        #5 完善了数据库支持（beta04）\n
+        #6 综合框架设计完成（beta05）\n
+        #7 升级了更新检查服务器以及下载服务（由原GitHub转为私人VPS）（beta02）\n
+        #8 添加了主题热重载（beta07）\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>

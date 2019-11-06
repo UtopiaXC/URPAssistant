@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
 
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
@@ -100,6 +101,7 @@ public class ActivitySettings extends AppCompatActivity {
                                             editor.putInt("theme",R.style.AppTheme_yellow);
                                             editor.commit();
                                         }
+                                        recreate();
 
                                     }
                                 })
@@ -121,16 +123,12 @@ public class ActivitySettings extends AppCompatActivity {
 
     }
 
-    private void checked_radio(){
-
-    }
-
-
-
     //返回键
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent = new Intent(this, ActivityMain.class);
+                startActivity(intent);
                 finish();
                 break;
         }

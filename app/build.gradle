@@ -7,7 +7,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.1-beta06"
+        versionName "1.0.1-beta07"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

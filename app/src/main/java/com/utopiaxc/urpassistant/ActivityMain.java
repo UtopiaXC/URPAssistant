@@ -75,6 +75,7 @@ public class ActivityMain extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("Theme",MODE_PRIVATE);
         int theme=sharedPreferences.getInt("theme",R.style.AppTheme);
         setTheme(theme);
+        getApplication().setTheme(theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
