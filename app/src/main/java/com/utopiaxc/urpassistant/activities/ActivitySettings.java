@@ -68,7 +68,6 @@ public class ActivitySettings extends AppCompatActivity {
                         final  RadioButton radioButton_yellow=linearLayout.findViewById(R.id.radioButtonYellow);
 
                         setURP.setTitle(getString(R.string.theme))
-                                .setMessage(getString(R.string.alert_theme))
                                 .setView(linearLayout)
                                 .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                     @Override

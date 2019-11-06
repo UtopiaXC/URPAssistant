@@ -67,5 +67,4 @@
     <string name="grey">灰色</string>
     <string name="purple">紫色（默认）</string>
     <string name="red">红色</string>
-    <string name="alert_theme">主题将在应用重启后生效</string>
 </resources>
