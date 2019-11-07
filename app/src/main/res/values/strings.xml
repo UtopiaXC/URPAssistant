@@ -55,4 +55,6 @@
     <string name="purple">Purple(Default)</string>
     <string name="red">Red</string>
     <string name="grade_list">Grade List</string>
+    <string name="credit">Credit:</string>
+    <string name="grade">Grade:</string>
 </resources>

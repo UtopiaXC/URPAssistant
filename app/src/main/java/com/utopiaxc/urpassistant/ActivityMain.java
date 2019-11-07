@@ -26,18 +26,18 @@ import android.view.MenuItem;
 
 public class ActivityMain extends AppCompatActivity {
 
-    private FragmentHome fragmentHome;
-    private FragmentTimeTable fragmentTimeTable;
-    private FragmentCenter fragmentCenter;
-    private String updateCheak="";
-    private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
+            private FragmentHome fragmentHome;
+            private FragmentTimeTable fragmentTimeTable;
+            private FragmentCenter fragmentCenter;
+            private String updateCheak="";
+            private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
 
-    //底部按钮监听
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            //底部按钮监听
+            private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                    = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragmentHome=new FragmentHome();

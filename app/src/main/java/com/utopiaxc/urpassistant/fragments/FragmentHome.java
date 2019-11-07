@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.activities.ActivitySettings;
+import com.utopiaxc.urpassistant.activities.AvctivityGradeList;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
@@ -52,25 +53,11 @@ public class FragmentHome extends Fragment {
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
                     public void onClick() {
-                        new Thread(new getGrade()).start();
+                        Intent intent=new Intent(getActivity(), AvctivityGradeList.class);
+                        startActivity(intent);
                     }
                 });
         messageCard.addMessageItem(ItemHome_getGrades);
-    }
-
-    class getGrade implements Runnable{
-
-        @Override
-        public void run() {
-            SharedPreferences sharedPreferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-            if(!sharedPreferences.getBoolean("UserIsSet",false))
-                return;
-            String address=sharedPreferences.getString("address","");
-            String username=sharedPreferences.getString("username","");
-            String password=sharedPreferences.getString("password","");
-            FunctionsPublicBasic functions=new FunctionsPublicBasic();
-            functions.setGrades(getActivity(),address,username,password);
-        }
     }
 
 }

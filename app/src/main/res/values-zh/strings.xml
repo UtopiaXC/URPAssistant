@@ -68,4 +68,6 @@
     <string name="purple">紫色（默认）</string>
     <string name="red">红色</string>
     <string name="grade_list">成绩单</string>
+    <string name="credit">学分：</string>
+    <string name="grade">成绩：</string>
 </resources>

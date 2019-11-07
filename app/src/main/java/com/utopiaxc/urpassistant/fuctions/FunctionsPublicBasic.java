@@ -3,7 +3,11 @@ package com.utopiaxc.urpassistant.fuctions;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.utopiaxc.urpassistant.sqlite.SQLHelperGradesList;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -248,26 +252,54 @@ public class FunctionsPublicBasic {
         if(!getDocument(address+"/gradeLnAllAction.do?type=ln&oper=sxinfo&lnsxdm=001"))
             return false;
         try{
+            SQLHelperGradesList sqlHelperGradesList=new SQLHelperGradesList(context,"URP",null,2);
+            SQLiteDatabase sqLiteDatabase=sqlHelperGradesList.getWritableDatabase();
+            sqLiteDatabase.execSQL("delete from grades");
+
+
             Elements elements_all_course = document.getElementsByClass("odd");
             for(Element element_single_course:elements_all_course){
                 Elements elements_single_course=element_single_course.getElementsByTag("td");
-                String messages_single_sign[] = new String[8];
-                int i=0;
+                String[] messages_single_sign = new String[20];
+                int flag=0;
                 for(Element element_single_sign:elements_single_course){
-                    messages_single_sign[i]=element_single_sign.toString();
-                    i++;
-                    System.out.println("----------------------------------");
-                    System.out.println( messages_single_sign[i]);
-                    System.out.println("----------------------------------");
-
-
+                    messages_single_sign[flag]=element_single_sign.toString();
+                    flag++;
                 }
 
+                for(int i=0;i<flag;i++){
+                    messages_single_sign[i]=messages_single_sign[i].replace(" ","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<tdalign=\"center\">","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("</td>","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("&nbsp;","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<palign=\"center\">","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("</p>","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<td>","");
+                }
+                ContentValues values=new ContentValues();
+                values.put("ClassId",messages_single_sign[0]);
+                values.put("ClassName",messages_single_sign[2]);
+                values.put("Credit",messages_single_sign[4]);
+                values.put("ClassAttribute",messages_single_sign[5]);
+                values.put("Grade",messages_single_sign[6]);
 
-
-
-
+                sqLiteDatabase.insert("grades",null,values);
             }
+
+            //SQL测试
+            /*
+            Cursor cursor = sqLiteDatabase.query("grades", new String[]{"ClassName","Credit"}, null, null, null, null, null);
+            while(cursor.moveToNext())
+                System.out.println(cursor.getString(cursor.getColumnIndex("ClassName"))
+                        +cursor.getString(cursor.getColumnIndex("Credit")));
+            cursor.close();
+            */
+
+            SharedPreferences sharedPreferences=context.getSharedPreferences("Grades",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putBoolean("GradeIsGot",true);
+            editor.commit();
+
             return true;
 
         }catch (Exception e){

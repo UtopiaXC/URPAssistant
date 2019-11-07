@@ -11,6 +11,7 @@ public class SQLHelperTimeTable extends SQLiteOpenHelper {
     private static Integer Version = 1;
 
 
+
     public SQLHelperTimeTable(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -37,7 +38,7 @@ public class SQLHelperTimeTable extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + "user";
+        String sql = "DROP TABLE IF EXISTS " + "classes";
         db.execSQL(sql);
         onCreate(db);
     }
