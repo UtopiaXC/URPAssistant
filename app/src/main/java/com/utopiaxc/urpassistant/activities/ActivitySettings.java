@@ -134,6 +134,12 @@ public class ActivitySettings extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ActivityMain.class);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

@@ -63,7 +63,7 @@ public class FragmentHome extends Fragment {
         @Override
         public void run() {
             SharedPreferences sharedPreferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-            if(sharedPreferences.getBoolean("UserIsSet",false))
+            if(!sharedPreferences.getBoolean("UserIsSet",false))
                 return;
             String address=sharedPreferences.getString("address","");
             String username=sharedPreferences.getString("username","");

@@ -248,12 +248,26 @@ public class FunctionsPublicBasic {
         if(!getDocument(address+"/gradeLnAllAction.do?type=ln&oper=sxinfo&lnsxdm=001"))
             return false;
         try{
-            System.out.println(document.toString());
+            Elements elements_all_course = document.getElementsByClass("odd");
+            for(Element element_single_course:elements_all_course){
+                Elements elements_single_course=element_single_course.getElementsByTag("td");
+                String messages_single_sign[] = new String[8];
+                int i=0;
+                for(Element element_single_sign:elements_single_course){
+                    messages_single_sign[i]=element_single_sign.toString();
+                    i++;
+                    System.out.println("----------------------------------");
+                    System.out.println( messages_single_sign[i]);
+                    System.out.println("----------------------------------");
+
+
+                }
 
 
 
 
 
+            }
             return true;
 
         }catch (Exception e){
