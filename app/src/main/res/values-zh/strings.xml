@@ -28,7 +28,7 @@
         本次更新内容\n
         #1 更新了成绩单框架
         #2 更新了成绩单获取算法
-        #3 更新了第一版成绩单布局（预览版适配器）\n
+        #3 更新了第二版成绩单布局（最终版）\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
@@ -43,10 +43,10 @@
     <string name="warning_message">请确保您已连接校园网或学校VPN或您处于可打开URP教务系统的环境下，否则测试将会失败（这将会消耗一些时间，请耐心等待）</string>
     <string name="start">开始</string>
     <string name="testing">测试中，请稍候</string>
-    <string name="configured">（已配置）</string>
+    <string name="configured">（已配置，已保存的数据库不会因此而改变）</string>
     <string name="config_useful">配置有效</string>
     <string name="config_useless">配置无效！请确保您在可连接校园网的网络环境下并保证您的账号密码正确</string>
-    <string name="address_alert">请输入完整网址，其中应包含\"http://\"或\"https://\"</string>
+    <string name="address_alert">请输入完整网址，其中应包含\"http://\"或\"https://\"（请注意网址应全为英文半角字符）</string>
     <string name="table_alert">请选择你的课程表布局方式\n（您也可以稍后在设置中进行更改）</string>
     <string name="timetable_chart">每周二维图表布局</string>
     <string name="timetable_list">每日列表布局</string>
@@ -65,4 +65,8 @@
     <string name="grade_list">成绩单</string>
     <string name="credit">学分：</string>
     <string name="grade">成绩：</string>
+    <string name="attribute">属性：</string>
+    <string name="first_get_grades">首次使用请下拉刷新</string>
+    <string name="refresh_successful">刷新成功</string>
+    <string name="refresh_failed">刷新失败，请确保你的网络以及账户正确\n（您可在中心进行可用性测试）</string>
 </resources>

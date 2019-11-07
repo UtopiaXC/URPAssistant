@@ -66,6 +66,7 @@ public class FunctionsPublicBasic {
                     .userAgent(userAgent)
                     .data("zjh", username, "mm", password)
                     .method(Connection.Method.POST)
+                    .timeout(10000)
                     .execute();
             Cookies = response.cookies();
             return true;

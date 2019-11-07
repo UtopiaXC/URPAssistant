@@ -48,7 +48,7 @@ public class FragmentHome extends Fragment {
     //卡片设置函数
     private void setMessageCard(){
         AboutPageMessageItem ItemHome_getGrades=new AboutPageMessageItem(getActivity())
-                .setIcon(getActivity().getDrawable(R.drawable.settings))
+                .setIcon(getActivity().getDrawable(R.drawable.gradelist))
                 .setMainText(getString(R.string.grade_list))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override

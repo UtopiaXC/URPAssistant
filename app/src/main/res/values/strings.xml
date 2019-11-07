@@ -57,4 +57,8 @@
     <string name="grade_list">Grade List</string>
     <string name="credit">Credit:</string>
     <string name="grade">Grade:</string>
+    <string name="attribute">Attribute:</string>
+    <string name="first_get_grades">Please Pull down to refresh at first time.</string>
+    <string name="refresh_successful">Refresh Successful</string>
+    <string name="refresh_failed">Refresh Failed,Please make sure your net work and account is Correct!</string>
 </resources>

@@ -65,6 +65,23 @@ public class ActivityLicence extends AppCompatActivity {
                     }
                 });
         messageCard.addMessageItem(ItemLicence_AndroidProcessButton);
+
+        AboutPageMessageItem ItemLicence_PullRefreshLayout=new AboutPageMessageItem(this)
+                .setIcon(getDrawable(R.drawable.developer))
+                .setMainText("Android Pull Refresh Layout")
+                .setDescriptionText("Powered By baoyongzhang")
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://github.com/baoyongzhang/android-PullRefreshLayout/blob/master/LICENSE");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        messageCard.addMessageItem(ItemLicence_PullRefreshLayout);
     }
 
     //返回键
