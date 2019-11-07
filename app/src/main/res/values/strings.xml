@@ -54,4 +54,5 @@
     <string name="grey">Grey</string>
     <string name="purple">Purple(Default)</string>
     <string name="red">Red</string>
+    <string name="grade_list">Grade List</string>
 </resources>

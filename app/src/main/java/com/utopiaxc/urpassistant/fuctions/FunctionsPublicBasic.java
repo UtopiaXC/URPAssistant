@@ -240,4 +240,27 @@ public class FunctionsPublicBasic {
         }
 
     }
+
+    //处理成绩表的方法
+    public boolean setGrades(Context context, String address, String username, String password){
+        if(!getCookies(address,username,password))
+            return false;
+        if(!getDocument(address+"/gradeLnAllAction.do?type=ln&oper=sxinfo&lnsxdm=001"))
+            return false;
+        try{
+            System.out.println(document.toString());
+
+
+
+
+
+            return true;
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+
+
+    }
 }
