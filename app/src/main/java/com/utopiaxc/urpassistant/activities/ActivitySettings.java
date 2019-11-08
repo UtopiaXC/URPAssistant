@@ -154,7 +154,7 @@ public class ActivitySettings extends AppCompatActivity {
 
 
         AboutPageMessageItem ItemSettings_firstStartPage = new AboutPageMessageItem(this)
-                .setIcon(getDrawable(R.drawable.list))
+                .setIcon(getDrawable(R.drawable.first_fragment))
                 .setMainText(getString(R.string.set_first_start_page))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
