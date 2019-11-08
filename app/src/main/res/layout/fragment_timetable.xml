@@ -25,6 +25,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
+        android:id="@+id/button_chart"
         android:textColor="@android:color/white"
         app:pb_colorNormal="@color/colorPrimary"
         app:pb_colorPressed="@color/colorPrimaryDark"/>
@@ -36,6 +37,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
+        android:id="@+id/button_daily"
         android:textColor="@android:color/white"
         app:pb_colorNormal="@color/colorPrimary"
         app:pb_colorPressed="@color/colorPrimaryDark"/>
@@ -47,6 +49,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
+        android:id="@+id/button_all"
         android:textColor="@android:color/white"
         app:pb_colorNormal="@color/colorPrimary"
         app:pb_colorPressed="@color/colorPrimaryDark"/>

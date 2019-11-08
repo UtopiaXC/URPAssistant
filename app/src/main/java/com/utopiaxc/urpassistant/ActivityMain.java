@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.utopiaxc.urpassistant.fragments.FragmentCenter;
 import com.utopiaxc.urpassistant.fragments.FragmentHome;
+import com.utopiaxc.urpassistant.fragments.FragmentTimeTable;
 import com.utopiaxc.urpassistant.fragments.FragmentTimeTableChart;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
@@ -25,10 +26,6 @@ import android.os.Message;
 import android.view.MenuItem;
 
 public class ActivityMain extends AppCompatActivity {
-
-            private FragmentHome fragmentHome;
-            private FragmentTimeTableChart fragmentTimeTable;
-            private FragmentCenter fragmentCenter;
             private String updateCheak="";
             private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
 
@@ -40,7 +37,7 @@ public class ActivityMain extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragmentHome=new FragmentHome();
+                    FragmentHome fragmentHome=new FragmentHome();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -49,15 +46,10 @@ public class ActivityMain extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_table:
-                    fragmentTimeTable=new FragmentTimeTableChart();
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .replace(R.id.frameLayout, fragmentTimeTable)
-                            .commitAllowingStateLoss();
+                    setFragment();
                     return true;
                 case R.id.navigation_notifications:
-                    fragmentCenter=new FragmentCenter();
+                    FragmentCenter fragmentCenter = new FragmentCenter();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -69,6 +61,8 @@ public class ActivityMain extends AppCompatActivity {
         }
     };
 
+
+
     //程序入口
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,22 +73,85 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //设置主fragment
-        fragmentHome = new FragmentHome();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .add(R.id.frameLayout, fragmentHome)
-                .commitAllowingStateLoss();
+        sharedPreferences=getSharedPreferences("FirstFragment",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+
+        System.out.println(sharedPreferences.getInt("Start",1));
+
+        if(sharedPreferences.getInt("Start",1)==1){
+            if(sharedPreferences.getInt("Start_first",1)==1){
+                FragmentHome fragmentHome = new FragmentHome();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.frameLayout, fragmentHome)
+                        .commitAllowingStateLoss();
+                navView.setSelectedItemId(R.id.navigation_home);
+            }else if(sharedPreferences.getInt("Start_first",1)==2){
+                navView.setSelectedItemId(R.id.navigation_table);
+                setFragment();
+
+            }
+        }else if(sharedPreferences.getInt("Start",1)==2){
+            navView.setSelectedItemId(R.id.navigation_table);
+            setFragment();
+            editor.putInt("Start",1);
+            editor.commit();
+        }else if(sharedPreferences.getInt("Start",1)==3) {
+            FragmentCenter fragmentCenter=new FragmentCenter();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frameLayout, fragmentCenter)
+                    .commitAllowingStateLoss();
+            navView.setSelectedItemId(R.id.navigation_notifications);
+            editor.putInt("Start",1);
+            editor.commit();
+        }
+
+
 
         //开启更新检查线程
         new Thread(new checkupdateRunnable()).start();
-
     }
 
+    private void setFragment(){
+        SharedPreferences sharedPreferences=getSharedPreferences("TimeTable",MODE_PRIVATE);
+        if(sharedPreferences.getInt("Layout",0)==0){
+            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frameLayout, fragmentTimeTable)
+                    .commitAllowingStateLoss();
+        }else if(sharedPreferences.getInt("Layout",0)==1){
+            FragmentTimeTableChart fragmentTimeTableChart=new FragmentTimeTableChart();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frameLayout, fragmentTimeTableChart)
+                    .commitAllowingStateLoss();
+        }else if(sharedPreferences.getInt("Layout",0)==2){
+            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frameLayout, fragmentTimeTable)
+                    .commitAllowingStateLoss();
+        }else if(sharedPreferences.getInt("Layout",0)==3){
+            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frameLayout, fragmentTimeTable)
+                    .commitAllowingStateLoss();
+        }
+    }
 
 
     //异步消息同步

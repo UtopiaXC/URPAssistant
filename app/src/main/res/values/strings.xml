@@ -61,4 +61,5 @@
     <string name="first_get_grades">Please Pull down to refresh at first time.</string>
     <string name="refresh_successful">Refresh Successful</string>
     <string name="refresh_failed">Refresh Failed,Please make sure your net work and account is Correct!</string>
+    <string name="set_first_start_page">page of start</string>
 </resources>

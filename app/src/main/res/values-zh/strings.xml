@@ -24,11 +24,12 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         开发快照版本\n
-        v1.0.1-beta08\n
+        v1.0.1-beta10\n
         本次更新内容\n
-        #1 更新了成绩单框架
-        #2 更新了成绩单获取算法
-        #3 更新了第二版成绩单布局（最终版）\n
+        #1 更新了课程表开源库\n
+        #2 更新了选择开启应用时的界面\n
+        #3 更新了选择课程表形式\n
+        #4 修复了从设置返回时返回到主页的问题\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
@@ -69,4 +70,5 @@
     <string name="first_get_grades">首次使用请下拉刷新</string>
     <string name="refresh_successful">刷新成功</string>
     <string name="refresh_failed">刷新失败，请确保你的网络以及账户正确\n（您可在中心进行可用性测试）</string>
+    <string name="set_first_start_page">启动时显示界面</string>
 </resources>
