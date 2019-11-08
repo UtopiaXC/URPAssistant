@@ -1,7 +1,11 @@
 package com.utopiaxc.urpassistant.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -20,9 +24,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class FragmentTimeTableChart extends Fragment {
+    private TimetableView timetableView;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable_chart, container, false);
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -32,13 +38,27 @@ public class FragmentTimeTableChart extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TimetableView mTimetableView =  Objects.requireNonNull(getActivity()).findViewById(R.id.id_timetableView);
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("ClassIsGot",false)){
+
+        }
+
+
+        new Thread(new getClasses()).start();
+
+
+
+
+    }
+
+    private void setTimetableView(){
+        timetableView =  Objects.requireNonNull(getActivity()).findViewById(R.id.id_timetableView);
         List<Integer> list = new ArrayList<>();
         list.add(1);
         SubjectBean subjectBean = new SubjectBean("1", "203", "a", list,1,2,1,1);
         List<SubjectBean> subjectBeans= new ArrayList<>();
         subjectBeans.add(subjectBean);
-        mTimetableView.setDataSource(subjectBeans)
+        timetableView.setDataSource(subjectBeans)
                 .setCurTerm("大三上学期")
                 .setCurWeek(1)
                 .setOnSubjectItemClickListener(new OnSubjectItemClickListener() {
@@ -48,6 +68,18 @@ public class FragmentTimeTableChart extends Fragment {
                     }
                 })
                 .showTimetableView();
-
     }
+
+    class getClasses implements Runnable{
+
+        @Override
+        public void run() {
+
+
+
+
+
+        }
+    }
+
 }

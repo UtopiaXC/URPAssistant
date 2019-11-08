@@ -233,7 +233,10 @@ public class FunctionsPublicBasic {
             cursor.close();
             */
 
-
+            SharedPreferences sharedPreferences=context.getSharedPreferences("TimeTable",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putBoolean("ClassIsGot",true);
+            editor.commit();
 
             sqliteDatabase.close();
             document = null;
