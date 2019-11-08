@@ -2,6 +2,8 @@ package com.utopiaxc.urpassistant.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.utopiaxc.urpassistant.R;
+import com.utopiaxc.urpassistant.sqlite.SQLHelperGradesList;
+import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import com.zhuangfei.timetable.core.OnSubjectItemClickListener;
 import com.zhuangfei.timetable.core.SubjectBean;
 import com.zhuangfei.timetable.core.TimetableView;
@@ -51,13 +55,26 @@ public class FragmentTimeTableChart extends Fragment {
 
     private void setTimetableView(){
         timetableView =  Objects.requireNonNull(getActivity()).findViewById(R.id.id_timetableView);
+        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(),"URP",null,2);
+        SQLiteDatabase sqLiteDatabase=sqlHelperTimeTable.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query("classes", new String[]{"ClassName","Teacher","Week","Data","Count","School","Building","Room"}, null, null, null, null, null);
+
+        while(cursor.moveToNext()){
+            String course_name=cursor.getString(cursor.getColumnIndex("ClassName"));
+            String room=cursor.getString(cursor.getColumnIndex("Room"));
+
+
+
+
+
+        }
+
         List<Integer> list = new ArrayList<>();
         list.add(1);
         SubjectBean subjectBean = new SubjectBean("1", "203", "a", list,1,2,1,1);
         List<SubjectBean> subjectBeans= new ArrayList<>();
         subjectBeans.add(subjectBean);
         timetableView.setDataSource(subjectBeans)
-                .setCurTerm("大三上学期")
                 .setCurWeek(1)
                 .setOnSubjectItemClickListener(new OnSubjectItemClickListener() {
                     @Override
