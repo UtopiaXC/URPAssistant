@@ -1,6 +1,5 @@
 package com.utopiaxc.urpassistant;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,13 +13,11 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.utopiaxc.urpassistant.fragments.FragmentCenter;
 import com.utopiaxc.urpassistant.fragments.FragmentHome;
-import com.utopiaxc.urpassistant.fragments.FragmentTimeTable;
 import com.utopiaxc.urpassistant.fragments.FragmentTimeTableChart;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;

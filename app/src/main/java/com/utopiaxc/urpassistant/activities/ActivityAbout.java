@@ -15,15 +15,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
 import io.github.varenyzc.opensourceaboutpages.LogoCard;
 import io.github.varenyzc.opensourceaboutpages.MessageCard;

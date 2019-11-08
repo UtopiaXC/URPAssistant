@@ -1,23 +1,15 @@
 package com.utopiaxc.urpassistant.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.utopiaxc.urpassistant.R;
-import com.utopiaxc.urpassistant.activities.ActivitySettings;
 import com.utopiaxc.urpassistant.activities.AvctivityGradeList;
-import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
-
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
 import io.github.varenyzc.opensourceaboutpages.MessageCard;
 

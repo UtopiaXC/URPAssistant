@@ -1,12 +1,9 @@
 package com.utopiaxc.urpassistant.fuctions;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.utopiaxc.urpassistant.sqlite.SQLHelperGradesList;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import org.jsoup.Connection;

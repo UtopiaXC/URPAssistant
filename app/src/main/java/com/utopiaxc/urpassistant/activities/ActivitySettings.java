@@ -7,16 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
-
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
 import io.github.varenyzc.opensourceaboutpages.MessageCard;
 
