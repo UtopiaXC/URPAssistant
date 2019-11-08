@@ -26,8 +26,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:textColor="@android:color/white"
-        custom:pb_colorNormal="@color/colorPrimary"
-        custom:pb_colorPressed="@color/colorPrimaryDark"/>
+        app:pb_colorNormal="@color/colorPrimary"
+        app:pb_colorPressed="@color/colorPrimaryDark"/>
 
     <com.dd.processbutton.FlatButton
         android:layout_width="match_parent"
@@ -37,8 +37,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:textColor="@android:color/white"
-        custom:pb_colorNormal="@color/colorPrimary"
-        custom:pb_colorPressed="@color/colorPrimaryDark" />
+        app:pb_colorNormal="@color/colorPrimary"
+        app:pb_colorPressed="@color/colorPrimaryDark"/>
 
     <com.dd.processbutton.FlatButton
         android:layout_width="match_parent"
@@ -48,8 +48,8 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:textColor="@android:color/white"
-        custom:pb_colorNormal="@color/colorPrimary"
-        custom:pb_colorPressed="@color/colorPrimaryDark" />
+        app:pb_colorNormal="@color/colorPrimary"
+        app:pb_colorPressed="@color/colorPrimaryDark"/>
 
 
 </LinearLayout>
