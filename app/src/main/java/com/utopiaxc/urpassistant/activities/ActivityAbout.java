@@ -25,8 +25,8 @@ public class ActivityAbout extends AppCompatActivity {
     private LogoCard logoCard ;
     private MessageCard messageCard;
     private static Context context;
-    private static String mSaveMessage = "";
-    private static ProgressDialog mSaveDialog = null;
+    private static String getUpdateMessage = "";
+    private static ProgressDialog getUpDialog = null;
     private FunctionsPublicBasic fuctions=new FunctionsPublicBasic();
 
     //Activity入口
@@ -50,7 +50,7 @@ public class ActivityAbout extends AppCompatActivity {
     //检查更新方法
     public void update_check(Context contexts) {
         context = contexts;
-        mSaveDialog = ProgressDialog.show(context, getText(R.string.update_check), getString(R.string.update_checking), true);
+        getUpDialog = ProgressDialog.show(context, getText(R.string.update_check), getString(R.string.update_checking), true);
 
         new Thread(new checkupdateRunnable()).start();
     }
@@ -68,11 +68,11 @@ public class ActivityAbout extends AppCompatActivity {
 
 
                 if (latest_version.equals("error")) {
-                    mSaveMessage = (String) getText(R.string.net_error);
+                    getUpdateMessage = (String) getText(R.string.net_error);
                 } else if (latest_version.equals(version)) {
-                    mSaveMessage = (String) getText(R.string.no_update);
+                    getUpdateMessage = (String) getText(R.string.no_update);
                 } else {
-                    mSaveMessage = (String) getText(R.string.has_update);
+                    getUpdateMessage = (String) getText(R.string.has_update);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -87,8 +87,8 @@ public class ActivityAbout extends AppCompatActivity {
     private Handler messageHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            mSaveDialog.dismiss();
-            if (mSaveMessage.equals(getText(R.string.has_update))) {
+            getUpDialog.dismiss();
+            if (getUpdateMessage.equals(getText(R.string.has_update))) {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(getString(R.string.download_newversion));
                 builder.setMessage(getString(R.string.has_update));
@@ -111,7 +111,7 @@ public class ActivityAbout extends AppCompatActivity {
                     }
                 });
                 builder.show();
-            } else if (mSaveMessage.equals(getText(R.string.no_update))) {
+            } else if (getUpdateMessage.equals(getText(R.string.no_update))) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAbout.this);
                 builder.setTitle(getString(R.string.congratulations));
                 builder.setMessage(getString(R.string.no_update));
