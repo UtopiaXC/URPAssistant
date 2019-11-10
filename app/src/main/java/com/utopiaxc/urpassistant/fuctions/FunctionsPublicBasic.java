@@ -180,6 +180,34 @@ public class FunctionsPublicBasic {
                 messages[11] = messages[11].replace("周上", "");
                 messages[11] = messages[11].replace(";", "");
 
+                if(messages[11].contains("双周")){
+                    messages[11]=messages[11].replace("双周","");
+                    String[] divide=messages[11].split("-");
+                    for(String divide_check:divide){
+                        divide_check.replace("-","");
+                    }
+                    for(int i=Integer.parseInt(divide[0]);i<=Integer.parseInt(divide[1]);i++){
+                        if(i%2==0){
+                            messages[11]+=i+",";
+                        }
+                    }
+                    messages[11] = messages[11].substring(0, messages[11].length() - 1);
+                }
+
+                if(messages[11].contains("单周")){
+                    messages[11]=messages[11].replace("单周","");
+                    String[] divide=messages[11].split("-");
+                    for(String divide_check:divide){
+                        divide_check.replace("-","");
+                    }
+                    for(int i=Integer.parseInt(divide[0]);i<=Integer.parseInt(divide[1]);i++){
+                        if(i%2==1){
+                            messages[11]+=i+",";
+                        }
+                    }
+                    messages[11] = messages[11].substring(0, messages[11].length() - 1);
+                }
+
                 if (messages[11].contains("-")) {
                     String[] time = messages[11].split(",");
                     messages[11] = "";

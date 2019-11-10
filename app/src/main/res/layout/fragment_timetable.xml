@@ -33,18 +33,6 @@
     <com.dd.processbutton.FlatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/timetable_list"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:id="@+id/button_daily"
-        android:textColor="@android:color/white"
-        app:pb_colorNormal="@color/colorPrimary"
-        app:pb_colorPressed="@color/colorPrimaryDark"/>
-
-    <com.dd.processbutton.FlatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/timetable_all_course_list"
         android:layout_marginTop="35dp"
         android:layout_marginLeft="35dp"

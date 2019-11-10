@@ -21,13 +21,7 @@
             android:textSize="20sp"
             android:text="@string/timetable_chart" />
 
-        <RadioButton
-            android:id="@+id/radioButton_timetable_daily"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:textSize="20sp"
-            android:text="@string/timetable_list" />
+
 
         <RadioButton
             android:id="@+id/radioButton_list"

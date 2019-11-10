@@ -123,7 +123,6 @@ public class ActivitySettings extends AppCompatActivity {
                         LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_selection_timetable_layout, null);  //从另外的布局关联组件
 
                         final RadioButton radioButton_chart = linearLayout.findViewById(R.id.radioButton_timetable_chart);
-                        final RadioButton radioButton_daily = linearLayout.findViewById(R.id.radioButton_timetable_daily);
                         final RadioButton radioButton_list = linearLayout.findViewById(R.id.radioButton_list);
 
                         setURP.setTitle(getString(R.string.timetable_layout))
@@ -134,11 +133,8 @@ public class ActivitySettings extends AppCompatActivity {
                                         if (radioButton_chart.isChecked()) {
                                             editor.putInt("Layout", 1);
                                             editor.commit();
-                                        } else if (radioButton_daily.isChecked()) {
-                                            editor.putInt("Layout", 2);
-                                            editor.commit();
                                         } else if (radioButton_list.isChecked()) {
-                                            editor.putInt("Layout", 3);
+                                            editor.putInt("Layout", 2);
                                             editor.commit();
                                         }
 

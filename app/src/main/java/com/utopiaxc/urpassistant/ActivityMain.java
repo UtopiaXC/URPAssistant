@@ -140,13 +140,6 @@ public class ActivityMain extends AppCompatActivity {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTable)
                     .commitAllowingStateLoss();
-        } else if (sharedPreferences.getInt("Layout", 0) == 3) {
-            FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.frameLayout, fragmentTimeTable)
-                    .commitAllowingStateLoss();
         }
     }
 

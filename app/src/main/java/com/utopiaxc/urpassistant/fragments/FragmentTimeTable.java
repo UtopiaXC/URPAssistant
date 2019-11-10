@@ -32,7 +32,6 @@ public class FragmentTimeTable extends Fragment {
 
 
         FlatButton flatButton_chart = getActivity().findViewById(R.id.button_chart);
-        FlatButton flatButton_daily = getActivity().findViewById(R.id.button_daily);
         FlatButton flatButton_all = getActivity().findViewById(R.id.button_all);
 
         flatButton_chart.setOnClickListener(new View.OnClickListener() {
@@ -51,28 +50,12 @@ public class FragmentTimeTable extends Fragment {
             }
         });
 
-        flatButton_daily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences sharedPreferences=getActivity().getSharedPreferences("TimeTable",getActivity().MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.putInt("Layout",2);
-                editor.commit();
-                SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
-                SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
-                editor_toActivity.putInt("Start", 2);
-                editor_toActivity.commit();
-                Intent intent=new Intent(getActivity(), ActivityMain.class);
-                startActivity(intent);
-            }
-        });
-
         flatButton_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPreferences=getActivity().getSharedPreferences("TimeTable",getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.putInt("Layout",3);
+                editor.putInt("Layout",2);
                 editor.commit();
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
