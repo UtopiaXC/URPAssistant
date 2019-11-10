@@ -29,6 +29,26 @@ public class ActivityLicence extends AppCompatActivity {
     }
 
     private void setMessageCard(){
+
+        AboutPageMessageItem ItemLicence_Jsoup=new AboutPageMessageItem(this)
+                .setIcon(getDrawable(R.drawable.developer))
+                .setMainText("Jsoup")
+                .setDescriptionText("Powered By Jonathan Hedley")
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://github.com/jhy/jsoup/blob/master/LICENSE");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        messageCard.addMessageItem(ItemLicence_Jsoup);
+
+
+
         AboutPageMessageItem ItemLicence_AboutPage=new AboutPageMessageItem(this)
                 .setIcon(getDrawable(R.drawable.developer))
                 .setMainText("Open Source About Page")
@@ -79,6 +99,23 @@ public class ActivityLicence extends AppCompatActivity {
                     }
                 });
         messageCard.addMessageItem(ItemLicence_PullRefreshLayout);
+
+        AboutPageMessageItem ItemLicence_TimeTableView=new AboutPageMessageItem(this)
+                .setIcon(getDrawable(R.drawable.developer))
+                .setMainText("TimeTable View")
+                .setDescriptionText("Powered By zfman")
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://github.com/zfman/TimetableView/blob/master/LICENSE");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        messageCard.addMessageItem(ItemLicence_TimeTableView);
     }
 
     //返回键

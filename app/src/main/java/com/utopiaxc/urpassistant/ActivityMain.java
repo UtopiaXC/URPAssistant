@@ -83,8 +83,6 @@ public class ActivityMain extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("FirstFragment", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        System.out.println(sharedPreferences.getInt("Start", 1));
-
         if (sharedPreferences.getInt("Start", 1) == 1) {
             if (sharedPreferences.getInt("Start_first", 1) == 1) {
                 FragmentHome fragmentHome = new FragmentHome();
@@ -115,8 +113,6 @@ public class ActivityMain extends AppCompatActivity {
             editor.putInt("Start", 1);
             editor.commit();
         }
-
-
         //开启更新检查线程
         new Thread(new checkupdateRunnable()).start();
     }

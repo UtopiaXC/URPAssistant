@@ -302,6 +302,7 @@ public class FunctionsPublicBasic {
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putBoolean("GradeIsGot",true);
             editor.commit();
+            sqLiteDatabase.close();
 
             return true;
 

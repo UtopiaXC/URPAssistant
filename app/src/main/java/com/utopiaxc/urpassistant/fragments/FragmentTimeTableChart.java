@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,8 +22,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,18 +34,16 @@ import androidx.fragment.app.Fragment;
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
-import com.utopiaxc.urpassistant.sqlite.SQLHelperGradesList;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
-import com.zhuangfei.timetable.core.OnSubjectItemClickListener;
-import com.zhuangfei.timetable.core.SubjectBean;
-import com.zhuangfei.timetable.core.TimetableView;
+import com.zhuangfei.timetable.TimetableView;
+import com.zhuangfei.timetable.listener.ISchedule;
+import com.zhuangfei.timetable.model.Schedule;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +52,7 @@ public class FragmentTimeTableChart extends Fragment {
     private String handlerMessage = null;
     private static ProgressDialog getTimetableDialog = null;
 
-
+    //设置菜单UI
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Auto-generated method stub
@@ -63,6 +60,7 @@ public class FragmentTimeTableChart extends Fragment {
         inflater.inflate(R.menu.fragment_timetable_menu, menu);
     }
 
+    //菜单栏监听
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
@@ -101,21 +99,23 @@ public class FragmentTimeTableChart extends Fragment {
 
                 setWeek.show();
 
+                return true;
+
             case R.id.fragment_timetable_start_week:
                 final AlertDialog.Builder setStartWeek = new AlertDialog.Builder(getActivity());
-                LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_data_picker, null);
+                LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_date_picker, null);
 
                 final DatePicker datePicker = linearLayout.findViewById(R.id.date_picker);
 
                 setStartWeek
                         .setView(linearLayout)
-                        .setTitle(getString(R.string.choose_start_week_alert))
                         .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 int year = datePicker.getYear();
                                 int month = datePicker.getMonth() + 1;
                                 int date = datePicker.getDayOfMonth();
+
                                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("StartWeek", year + "-" + month + "-" + date);
@@ -124,67 +124,52 @@ public class FragmentTimeTableChart extends Fragment {
                                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
                                 editor_toActivity.putInt("Start", 2);
                                 editor_toActivity.commit();
-                                Intent intent=new Intent(getActivity(), ActivityMain.class);
+                                Intent intent = new Intent(getActivity(), ActivityMain.class);
                                 startActivity(intent);
                             }
                         })
                         .create()
                         .show();
 
-
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
+    //FragmentUI创建
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable_chart, container, false);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
         String start = sharedPreferences.getString("StartWeek", "NULL");
         if (start.equals("NULL")) {
-            getActivity().setTitle(getString(R.string.title_table)+"-"+"第1周");
-        }
+            getActivity().setTitle(getString(R.string.title_table) + "-" + "第1周");
+        } else {
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
-        try {
+            try {
 
-
-            Calendar calendar = Calendar.getInstance();
-
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            String end = year + "-" + month + "-" + day;
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
+                Calendar calendar = Calendar.getInstance();
+                calendar.setFirstDayOfWeek(2);
+                int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
 
 
-            Date d1 = df.parse(start);//得到第一个时间
-            Date d2 = df.parse(end);//第二个时间
-            long diff = d2.getTime() - d1.getTime();//差值
+                calendar.setTime(dateFormat.parse(start));
+                int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                int weeks = end_week - start_week + 1;
 
-            if (diff < 1) {
-                getActivity().setTitle(getString(R.string.title_table)+"-"+"第1周");
+                if (weeks < 1) {
+                    getActivity().setTitle(getString(R.string.title_table) + "-" + "第1周");
+
+                } else {
+                    getActivity().setTitle(getString(R.string.title_table) + "-" + "第" + weeks + "周");
+                }
+            } catch (Exception e) {
+                System.out.println(e.toString());
             }
-
-            long days = diff / (1000 * 60 * 60 * 24);//得到差的天数
-
-            System.out.println(days);
-
-            long weeks = days / 7 + 1;
-            if(days%7==0)
-                weeks++;
-
-            getActivity().setTitle(getString(R.string.title_table)+"-"+"第"+weeks+"周");
-
-        }catch (Exception e){
-            System.out.println(e.toString());
         }
-
-
-
 
         return view;
     }
@@ -225,6 +210,8 @@ public class FragmentTimeTableChart extends Fragment {
 
     }
 
+    //设置表内容
+    @SuppressLint("Range")
     private void setTimetableView() {
         timetableView = Objects.requireNonNull(getActivity()).findViewById(R.id.id_timetableView);
         SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
@@ -232,7 +219,7 @@ public class FragmentTimeTableChart extends Fragment {
         Cursor cursor = sqLiteDatabase.query("classes", new String[]{"ClassName", "Teacher", "Week", "Data", "Count", "School", "Building", "Room", "Time"}, null, null, null, null, null);
         int course_color = 1;
         int flag = 0;
-        List<SubjectBean> subjectBeans = new ArrayList<>();
+        final List<Schedule> schedules = new ArrayList<>();
         String[] name_check = new String[40];
         int[] color_check = new int[40];
 
@@ -262,8 +249,8 @@ public class FragmentTimeTableChart extends Fragment {
 
             for (int i = 0; i < name_check.length; i++) {
                 if (course_name.equals(name_check[i])) {
-                    SubjectBean subjectBean = new SubjectBean(course_name, building + room, teacher, list, time, count, day, color_check[i]);
-                    subjectBeans.add(subjectBean);
+                    Schedule schedule= new Schedule(course_name, building + room, teacher, list, time, count, day, color_check[i]);
+                    schedules.add(schedule);
                     isExist = true;
                     break;
                 }
@@ -276,9 +263,10 @@ public class FragmentTimeTableChart extends Fragment {
 
             name_check[flag] = course_name;
             color_check[flag] = course_color;
-            SubjectBean subjectBean = new SubjectBean(course_name, building + room, teacher, list, time, count, day, course_color++);
-            subjectBeans.add(subjectBean);
+            Schedule schedule = new Schedule(course_name, building + room, teacher, list, time, count, day, course_color++);
+            schedules.add(schedule);
 
+            sqLiteDatabase.close();
 
             //  } catch (Exception e) {
             //      System.out.println(e.toString());
@@ -292,59 +280,103 @@ public class FragmentTimeTableChart extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
         String start = sharedPreferences.getString("StartWeek", "NULL");
         if (start.equals("NULL")) {
-            timetableView.setDataSource(subjectBeans)
-                    .setCurWeek(1)
-                    .showTimetableView();
+            timetableView.data(schedules)
+                    .curWeek(1)
+                    .alpha((float)50,(float)0,(float)100)
+                    .monthWidthDp(20)
+                    .callback(new ISchedule.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(View v, List<Schedule> scheduleList) {
+                            for(Schedule a:scheduleList){
+                                new AlertDialog.Builder(getActivity())
+                                        .setTitle(a.getName())
+                                        .setMessage(a.getTeacher()+"\n"+a.getRoom()+"\n")
+                                        .create()
+                                        .show();
+                            }
+                        }
+                    })
+                    .showView();
+            return;
         }
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
         try {
 
 
             Calendar calendar = Calendar.getInstance();
+            calendar.setFirstDayOfWeek(2);
 
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            String end = year + "-" + month + "-" + day;
+            int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
 
 
-            Date d1 = df.parse(start);//得到第一个时间
-            Date d2 = df.parse(end);//第二个时间
-            long diff = d2.getTime() - d1.getTime();//差值
+            calendar.setTime(dateFormat.parse(start));
 
-            if (diff < 1) {
-                timetableView.setDataSource(subjectBeans)
-                        .setCurWeek(1)
-                        .showTimetableView();
+            int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+
+
+            if (end_week - start_week < 1) {
+                timetableView.data(schedules)
+                        .curWeek(1)
+                        .alpha((float)50,(float)0,(float)100)
+                        .monthWidthDp(20)
+                        .callback(new ISchedule.OnItemClickListener(){
+                            @Override
+                            public void onItemClick(View v, List<Schedule> scheduleList) {
+                                for(Schedule a:scheduleList){
+                                    new AlertDialog.Builder(getActivity())
+                                            .setTitle(a.getName())
+                                            .setMessage(a.getTeacher()+"\n"+a.getRoom()+"\n")
+                                            .create()
+                                            .show();
+                                }
+                            }
+                        })
+                        .showView();
                 return;
             }
 
-            long days = diff / (1000 * 60 * 60 * 24);//得到差的天数
-
-            System.out.println(days);
-
-            long weeks = days / 7+1;
-            if(days%7==0)
-                weeks++;
-
-            System.out.println(weeks);
-
-            timetableView.setDataSource(subjectBeans)
-                    .setCurWeek((int) weeks)
-                    .showTimetableView();
+            timetableView.data(schedules)
+                    .curWeek(end_week - start_week + 1)
+                    .alpha((float)50,(float)0,(float)100)
+                    .monthWidthDp(20)
+                    .callback(new ISchedule.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(View v, List<Schedule> scheduleList) {
+                            for(Schedule a:scheduleList){
+                               new AlertDialog.Builder(getActivity())
+                                       .setTitle(a.getName())
+                                       .setMessage(a.getTeacher()+"\n"+a.getRoom()+"\n")
+                                       .create()
+                                       .show();
+                            }
+                        }
+                    })
+                    .showView();
 
         } catch (ParseException e) {
             e.printStackTrace();
-            timetableView.setDataSource(subjectBeans)
-                    .setCurWeek(1)
-                    .showTimetableView();
+            timetableView.data(schedules)
+                    .curWeek(1)
+                    .alpha((float)50,(float)0,(float)100)
+                    .monthWidthDp(20)
+                    .callback(new ISchedule.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(View v, List<Schedule> scheduleList) {
+                            for(Schedule a:scheduleList){
+                                new AlertDialog.Builder(getActivity())
+                                        .setTitle(a.getName())
+                                        .setMessage(a.getTeacher()+"\n"+a.getRoom()+"\n")
+                                        .create()
+                                        .show();
+                            }
+                        }
+                    })
+                    .showView();
         }
-
-
     }
 
+    //获取课程的线程
     class getClasses implements Runnable {
 
         @Override
@@ -366,7 +398,7 @@ public class FragmentTimeTableChart extends Fragment {
         }
     }
 
-
+    //异步消息同步
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @SuppressLint("ShowToast")

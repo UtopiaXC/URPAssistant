@@ -24,13 +24,16 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         开发快照版本\n
-        v1.0.1-beta11\n
+        v1.0.1-beta12\n
         本次更新内容\n
-        #1 更新了课程表开源库\n
+        #1 更新了课程表开源库至2.0.6\n
         #2 更新了选择开启应用时的界面\n
         #3 更新了选择课程表形式\n
         #4 修复了从设置返回时返回到主页的问题\n
-        #5 完成了第一版二维课表设计与实现\n
+        #5 完成了第二版二维课表设计与实现\n
+        #6 修复了选周问题\n\n
+        #Sorry 1# 目前，由于框架设计问题，修改周数（单次修改、非对数据库进行改变）后无法在顶部Toolbar显示正确的周数，该问题暂时无法解决，请谅解\n\n
+        #Sorry 2# 暂时，由于数据库结构设计问题，暂时不支持自定义课程以及修改课程信息，该功能将在正式版第二版本进行更新\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
@@ -82,5 +85,4 @@
     <string name="refresh_timetable">刷新课程表</string>
     <string name="change_week">更改显示周数</string>
     <string name="set_start_week">设置初始周数</string>
-    <string name="choose_start_week_alert">请选择起始周内周一\n（否则可能出现问题）</string>
-</resources>
+    </resources>

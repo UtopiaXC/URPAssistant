@@ -92,6 +92,7 @@ public class AvctivityGradeList extends AppCompatActivity {
             flag++;
         }
         cursor.close();
+        sqLiteDatabase.close();
 
 
         for (int i = 0; i <flag; i++) {

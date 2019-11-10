@@ -72,5 +72,4 @@
     <string name="refresh_timetable">Refresh timetable</string>
     <string name="change_week">Change Display Week</string>
     <string name="set_start_week">Set start of weeks</string>
-    <string name="choose_start_week_alert">Please select monday of the starting week</string>
-</resources>
+    </resources>
