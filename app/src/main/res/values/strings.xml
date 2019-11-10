@@ -62,4 +62,13 @@
     <string name="refresh_successful">Refresh Successful</string>
     <string name="refresh_failed">Refresh Failed,Please make sure your net work and account is Correct!</string>
     <string name="set_first_start_page">page of start</string>
+    <string name="error">Error</string>
+    <string name="fail_to_get_timetable">Fail to get timetable message!</string>
+    <string name="getting_timetable">Getting Timetable</string>
+    <string name="no_timetable_sql">No database</string>
+    <string name="get_timetable_sql">Get timetable database now?</string>
+    <string name="later">Later</string>
+    <string name="alert">Alert</string>
+    <string name="refresh_timetable">Refresh timetable</string>
+    <string name="change_week">Change Week</string>
 </resources>

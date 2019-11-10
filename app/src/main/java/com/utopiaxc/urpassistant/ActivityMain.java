@@ -23,21 +23,24 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class ActivityMain extends AppCompatActivity {
-            private String updateCheak="";
-            private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
+    private String updateCheak = "";
+    private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
 
-            //底部按钮监听
-            private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                    = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    //底部按钮监听
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    FragmentHome fragmentHome=new FragmentHome();
+                    FragmentHome fragmentHome = new FragmentHome();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -62,12 +65,11 @@ public class ActivityMain extends AppCompatActivity {
     };
 
 
-
     //程序入口
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences=getSharedPreferences("Theme",MODE_PRIVATE);
-        int theme=sharedPreferences.getInt("theme",R.style.AppTheme);
+        SharedPreferences sharedPreferences = getSharedPreferences("Theme", MODE_PRIVATE);
+        int theme = sharedPreferences.getInt("theme", R.style.AppTheme);
         setTheme(theme);
         getApplication().setTheme(theme);
         super.onCreate(savedInstanceState);
@@ -78,13 +80,13 @@ public class ActivityMain extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //设置主fragment
-        sharedPreferences=getSharedPreferences("FirstFragment",MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("FirstFragment", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        System.out.println(sharedPreferences.getInt("Start",1));
+        System.out.println(sharedPreferences.getInt("Start", 1));
 
-        if(sharedPreferences.getInt("Start",1)==1){
-            if(sharedPreferences.getInt("Start_first",1)==1){
+        if (sharedPreferences.getInt("Start", 1) == 1) {
+            if (sharedPreferences.getInt("Start_first", 1) == 1) {
                 FragmentHome fragmentHome = new FragmentHome();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -92,59 +94,58 @@ public class ActivityMain extends AppCompatActivity {
                         .replace(R.id.frameLayout, fragmentHome)
                         .commitAllowingStateLoss();
                 navView.setSelectedItemId(R.id.navigation_home);
-            }else if(sharedPreferences.getInt("Start_first",1)==2){
+            } else if (sharedPreferences.getInt("Start_first", 1) == 2) {
                 navView.setSelectedItemId(R.id.navigation_table);
                 setFragment();
 
             }
-        }else if(sharedPreferences.getInt("Start",1)==2){
+        } else if (sharedPreferences.getInt("Start", 1) == 2) {
             navView.setSelectedItemId(R.id.navigation_table);
             setFragment();
-            editor.putInt("Start",1);
+            editor.putInt("Start", 1);
             editor.commit();
-        }else if(sharedPreferences.getInt("Start",1)==3) {
-            FragmentCenter fragmentCenter=new FragmentCenter();
+        } else if (sharedPreferences.getInt("Start", 1) == 3) {
+            FragmentCenter fragmentCenter = new FragmentCenter();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentCenter)
                     .commitAllowingStateLoss();
             navView.setSelectedItemId(R.id.navigation_notifications);
-            editor.putInt("Start",1);
+            editor.putInt("Start", 1);
             editor.commit();
         }
-
 
 
         //开启更新检查线程
         new Thread(new checkupdateRunnable()).start();
     }
 
-    private void setFragment(){
-        SharedPreferences sharedPreferences=getSharedPreferences("TimeTable",MODE_PRIVATE);
-        if(sharedPreferences.getInt("Layout",0)==0){
-            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+    private void setFragment() {
+        SharedPreferences sharedPreferences = getSharedPreferences("TimeTable", MODE_PRIVATE);
+        if (sharedPreferences.getInt("Layout", 0) == 0) {
+            FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTable)
                     .commitAllowingStateLoss();
-        }else if(sharedPreferences.getInt("Layout",0)==1){
-            FragmentTimeTableChart fragmentTimeTableChart=new FragmentTimeTableChart();
+        } else if (sharedPreferences.getInt("Layout", 0) == 1) {
+            FragmentTimeTableChart fragmentTimeTableChart = new FragmentTimeTableChart();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTableChart)
                     .commitAllowingStateLoss();
-        }else if(sharedPreferences.getInt("Layout",0)==2){
-            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+        } else if (sharedPreferences.getInt("Layout", 0) == 2) {
+            FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTable)
                     .commitAllowingStateLoss();
-        }else if(sharedPreferences.getInt("Layout",0)==3){
-            FragmentTimeTable fragmentTimeTable=new FragmentTimeTable();
+        } else if (sharedPreferences.getInt("Layout", 0) == 3) {
+            FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -159,7 +160,7 @@ public class ActivityMain extends AppCompatActivity {
     private Handler messageHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (updateCheak.equals((String)getText(R.string.has_update))) {
+            if (updateCheak.equals((String) getText(R.string.has_update))) {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMain.this);
                 builder.setTitle(getString(R.string.download_newversion));
                 builder.setMessage(getString(R.string.has_update));
@@ -211,7 +212,9 @@ public class ActivityMain extends AppCompatActivity {
             }
             messageHandler.sendMessage(messageHandler.obtainMessage());
         }
-    };
+    }
+
+    ;
 
 
 }

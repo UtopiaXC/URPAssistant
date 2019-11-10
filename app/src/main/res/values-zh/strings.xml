@@ -67,8 +67,17 @@
     <string name="credit">学分：</string>
     <string name="grade">成绩：</string>
     <string name="attribute">属性：</string>
-    <string name="first_get_grades">首次使用请下拉刷新</string>
+    <string name="first_get_grades">首次使用请下拉刷新（请在校园网下进行）</string>
     <string name="refresh_successful">刷新成功</string>
     <string name="refresh_failed">刷新失败，请确保你的网络以及账户正确\n（您可在中心进行可用性测试）</string>
     <string name="set_first_start_page">启动时显示界面</string>
+    <string name="error">错误</string>
+    <string name="fail_to_get_timetable">获取课程表数据失败</string>
+    <string name="getting_timetable">正在获取课程表</string>
+    <string name="no_timetable_sql">未找到数据库</string>
+    <string name="get_timetable_sql">是否现在获取课程表数据库？（请在校园网下进行）</string>
+    <string name="later">稍后</string>
+    <string name="alert">提示</string>
+    <string name="refresh_timetable">刷新课程表</string>
+    <string name="change_week">更改周数</string>
 </resources>

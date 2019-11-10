@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FunctionsPublicBasic {
-    private String userAgent = ".userAgent(\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36\")";
+    private String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36";
     private Map<String, String> Cookies = null;
     private Document document = null;
 
@@ -63,12 +63,13 @@ public class FunctionsPublicBasic {
                     .userAgent(userAgent)
                     .data("zjh", username, "mm", password)
                     .method(Connection.Method.POST)
-                    .timeout(10000)
+                   // .timeout(10000)
                     .execute();
             Cookies = response.cookies();
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
+            System.out.println("cookies error");
             return false;
         }
     }
@@ -134,7 +135,7 @@ public class FunctionsPublicBasic {
             String messages_last[] = new String[30];
 
             //数据库打开
-            SQLHelperTimeTable sql = new SQLHelperTimeTable(context, "URP",null,2);
+            SQLHelperTimeTable sql = new SQLHelperTimeTable(context, "URP_timetable",null,2);
             SQLiteDatabase sqliteDatabase = sql.getWritableDatabase();
             sqliteDatabase.execSQL("delete from classes");
 
@@ -219,6 +220,7 @@ public class FunctionsPublicBasic {
                 sqliteDatabase.insert("classes", null, values);
 
 
+
             }
 
             //SQLit测试
@@ -240,10 +242,10 @@ public class FunctionsPublicBasic {
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());
+            System.out.println("????");
             document = null;
             return false;
         }
-
     }
 
     //处理成绩表的方法
