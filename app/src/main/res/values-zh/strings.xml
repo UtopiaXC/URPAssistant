@@ -24,12 +24,13 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         开发快照版本\n
-        v1.0.1-beta10\n
+        v1.0.1-beta11\n
         本次更新内容\n
         #1 更新了课程表开源库\n
         #2 更新了选择开启应用时的界面\n
         #3 更新了选择课程表形式\n
         #4 修复了从设置返回时返回到主页的问题\n
+        #5 完成了第一版二维课表设计与实现\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>
