@@ -28,6 +28,7 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(getString(R.string.title_home));
 
         //预绑定
         messageCard=getActivity().findViewById(R.id.home_card);

@@ -21,7 +21,7 @@ public class FragmentTimeTable extends Fragment {
     //配置FragmentUI
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
-
+        getActivity().setTitle(getString(R.string.title_table));
         return view;
     }
 

@@ -80,5 +80,7 @@
     <string name="later">稍后</string>
     <string name="alert">提示</string>
     <string name="refresh_timetable">刷新课程表</string>
-    <string name="change_week">更改周数</string>
+    <string name="change_week">更改显示周数</string>
+    <string name="set_start_week">设置初始周数</string>
+    <string name="choose_start_week_alert">请选择起始周内周一\n（否则可能出现问题）</string>
 </resources>
