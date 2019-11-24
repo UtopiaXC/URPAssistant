@@ -86,7 +86,8 @@ public class FragmentTimeTableChart extends Fragment {
                     @Override
                     public void onClick(View view) {
                         setWeek.dismiss();
-                        timetableView.changeWeek(numberPicker.getValue(), true);
+                        timetableView.changeWeekOnly(numberPicker.getValue());
+                        timetableView.hideDateView();
                     }
                 });
 
@@ -280,6 +281,7 @@ public class FragmentTimeTableChart extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
         String start = sharedPreferences.getString("StartWeek", "NULL");
         if (start.equals("NULL")) {
+            timetableView.showDateView();
             timetableView.data(schedules)
                     .curWeek(1)
                     .alpha((float)50,(float)0,(float)100)
@@ -316,6 +318,7 @@ public class FragmentTimeTableChart extends Fragment {
 
 
             if (end_week - start_week < 1) {
+                timetableView.showDateView();
                 timetableView.data(schedules)
                         .curWeek(1)
                         .alpha((float)50,(float)0,(float)100)
@@ -336,6 +339,7 @@ public class FragmentTimeTableChart extends Fragment {
                 return;
             }
 
+            timetableView.showDateView();
             timetableView.data(schedules)
                     .curWeek(end_week - start_week + 1)
                     .alpha((float)50,(float)0,(float)100)
@@ -352,6 +356,7 @@ public class FragmentTimeTableChart extends Fragment {
                             }
                         }
                     })
+
                     .showView();
 
         } catch (ParseException e) {
