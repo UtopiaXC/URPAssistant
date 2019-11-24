@@ -248,7 +248,6 @@ public class FunctionsPublicBasic {
                 sqliteDatabase.insert("classes", null, values);
 
 
-
             }
 
             //SQLit测试

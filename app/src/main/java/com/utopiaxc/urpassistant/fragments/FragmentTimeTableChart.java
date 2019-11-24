@@ -3,6 +3,7 @@ package com.utopiaxc.urpassistant.fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -484,15 +485,20 @@ public class FragmentTimeTableChart extends Fragment {
         EditText textView_credit = linearLayout.findViewById(R.id.alertdialog_course_message_editText_credit);
         EditText textView_attribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_attribute);
         EditText textView_examattribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_examAttribute);
-        EditText textView_week = linearLayout.findViewById(R.id.alertdialog_course_message_editText_week);
-        EditText textView_time = linearLayout.findViewById(R.id.alertdialog_course_message_editText_time);
         EditText textView_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_editText_teacher);
         EditText textView_school = linearLayout.findViewById(R.id.alertdialog_course_message_editText_school);
         EditText textView_room = linearLayout.findViewById(R.id.alertdialog_course_message_editText_room);
+        EditText textView_week = linearLayout.findViewById(R.id.alertdialog_course_message_editText_week);
+        EditText textView_time = linearLayout.findViewById(R.id.alertdialog_course_message_editText_time);
+
+        String courseName="";
+        String courseData="";
 
 
         while(cursor.moveToNext()) {
             textView_name.setHint(cursor.getString(cursor.getColumnIndex("ClassName")));
+            courseName=cursor.getString(cursor.getColumnIndex("ClassName"));
+            courseData=cursor.getString(cursor.getColumnIndex("Data"));
             textView_id.setHint(cursor.getString(cursor.getColumnIndex("ClassId")));
             textView_credit.setHint(cursor.getString(cursor.getColumnIndex("Credit")));
             textView_attribute.setHint(cursor.getString(cursor.getColumnIndex("ClassAttribute")));
@@ -508,7 +514,117 @@ public class FragmentTimeTableChart extends Fragment {
                 .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+                        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getWritableDatabase();
+                        if(!textView_name.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("ClassName",textView_name.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
 
+                        if(!textView_id.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("ClassId",textView_id.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_credit.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("Credit",textView_credit.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_attribute.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("ClassAttribute",textView_attribute.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_examattribute.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("ExamAttribute",textView_examattribute.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_week.getText().toString().equals("")){
+
+                        }
+
+                        if(!textView_time.getText().toString().equals("")){
+
+                        }
+
+                        if(!textView_teacher.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("Teacher",textView_teacher.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_school.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("School",textView_school.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_teacher.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("Teacher",textView_teacher.getText().toString());
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+                        if(!textView_room.getText().toString().equals("")){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("Room",textView_room.getText().toString());
+                            contentValues.put("Building","");
+                            sqLiteDatabase.update("classes",
+                                    contentValues,
+                                    "ClassName = ?",
+                                    new String[]{name});
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        setTimetableView();
                     }
                 })
                 .setNegativeButton(getActivity().getString(R.string.cancel),null)
