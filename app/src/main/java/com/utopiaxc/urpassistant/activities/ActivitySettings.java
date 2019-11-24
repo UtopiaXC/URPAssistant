@@ -182,8 +182,6 @@ public class ActivitySettings extends AppCompatActivity {
                                 })
                                 .create()
                                 .show();
-
-
                     }
                 });
         messageCard.addMessageItem(ItemSettings_firstStartPage);

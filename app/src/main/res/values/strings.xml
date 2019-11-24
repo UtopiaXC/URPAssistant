@@ -75,4 +75,17 @@
     <string name="frount_week">Frount Week</string>
     <string name="next_week">Next Week</string>
     <string name="back_to_now">Back To Now</string>
+    <string name="course_name">Course Name:</string>
+    <string name="course_id">Course ID:</string>
+    <string name="course_attribute">Course Attribute:</string>
+    <string name="exam_attribute">Exam Attribute:</string>
+    <string name="weeks">Weeks:</string>
+    <string name="course_time">Course Time:</string>
+    <string name="teacher">Teacher:</string>
+    <string name="school">School:</string>
+    <string name="room">Room:</string>
+    <string name="edit">Edit</string>
+    <string name="exam_message">Exam Messages</string>
+    <string name="hint_weeks">Please use "," to divide numbers!</string>
+    <string name="hint_time">Please use "~" to input</string>
 </resources>

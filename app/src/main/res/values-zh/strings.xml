@@ -88,4 +88,17 @@
     <string name="frount_week">上一周</string>
     <string name="next_week">下一周</string>
     <string name="back_to_now">返回本周</string>
+    <string name="course_name">课程名：</string>
+    <string name="course_id">课程号：</string>
+    <string name="course_attribute">课程属性：</string>
+    <string name="exam_attribute">考试类型：</string>
+    <string name="weeks">上课周序：</string>
+    <string name="course_time">课程节次：</string>
+    <string name="teacher">教师：</string>
+    <string name="school">校区：</string>
+    <string name="room">教室：</string>
+    <string name="edit">编辑</string>
+    <string name="exam_message">考试信息</string>
+    <string name="hint_weeks">请使用半角“,”来分隔周序</string>
+    <string name="hint_time">请使用“~”分隔上课节次</string>
 </resources>

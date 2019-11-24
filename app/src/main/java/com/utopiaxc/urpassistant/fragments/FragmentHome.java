@@ -51,6 +51,19 @@ public class FragmentHome extends Fragment {
                     }
                 });
         messageCard.addMessageItem(ItemHome_getGrades);
+
+        AboutPageMessageItem ItemHome_getExams=new AboutPageMessageItem(getActivity())
+                .setIcon(getActivity().getDrawable(R.drawable.gradelist))
+                .setMainText(getString(R.string.exam_message))
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+
+                    }
+                });
+        messageCard.addMessageItem(ItemHome_getExams);
+
+
     }
 
 }

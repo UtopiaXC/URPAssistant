@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
@@ -234,7 +235,7 @@ public class FragmentTimeTableChart extends Fragment {
 
     }
 
-
+    //设置切换周按钮
     private void setTextViewButton() {
         textView_frount = getActivity().findViewById(R.id.textView_frount);
         textView_now = getActivity().findViewById(R.id.textView_now);
@@ -247,7 +248,7 @@ public class FragmentTimeTableChart extends Fragment {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isCurWeek", false);
-                editor.putInt("Week", cur-1);
+                editor.putInt("Week", cur - 1);
                 editor.commit();
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
@@ -277,7 +278,7 @@ public class FragmentTimeTableChart extends Fragment {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isCurWeek", false);
-                editor.putInt("Week", cur+1);
+                editor.putInt("Week", cur + 1);
                 editor.commit();
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
@@ -363,12 +364,8 @@ public class FragmentTimeTableChart extends Fragment {
                 .callback(new ISchedule.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, List<Schedule> scheduleList) {
-                        for (Schedule a : scheduleList) {
-                            new AlertDialog.Builder(getActivity())
-                                    .setTitle(a.getName())
-                                    .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                    .create()
-                                    .show();
+                        for (Schedule item : scheduleList) {
+                            setItemOnClickListener(item);
                         }
                     }
                 });
@@ -414,6 +411,109 @@ public class FragmentTimeTableChart extends Fragment {
             editor.putBoolean("isCurWeek", true);
             editor.commit();
         }
+    }
+
+    //设置课程点击监听
+    @SuppressLint("SetTextI18n")
+    private void setItemOnClickListener(Schedule item) {
+
+        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getReadableDatabase();
+        String selection_name = item.getName();
+        String selection_data = String.valueOf(item.getDay());
+        Cursor cursor = sqLiteDatabase.query("classes", new String[]{"ClassName", "ClassId", "Credit", "ClassAttribute", "ExamAttribute", "Teacher", "Week", "Data", "Count", "School", "Building", "Room", "Time"}, "ClassName=? and Data=?", new String[]{selection_name, selection_data}, null, null, null);
+
+        android.app.AlertDialog.Builder CourseMessage = new android.app.AlertDialog.Builder(getActivity());
+        LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_course_message, null);  //从另外的布局关联组件
+        TextView textView_name = linearLayout.findViewById(R.id.alertdialog_course_message_name);
+        TextView textView_id = linearLayout.findViewById(R.id.alertdialog_course_message_id);
+        TextView textView_credit = linearLayout.findViewById(R.id.alertdialog_course_message_credit);
+        TextView textView_attribute = linearLayout.findViewById(R.id.alertdialog_course_message_attribute);
+        TextView textView_examattribute = linearLayout.findViewById(R.id.alertdialog_course_message_examAttribute);
+        TextView textView_week = linearLayout.findViewById(R.id.alertdialog_course_message_week);
+        TextView textView_time = linearLayout.findViewById(R.id.alertdialog_course_message_time);
+        TextView textView_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_teacher);
+        TextView textView_school = linearLayout.findViewById(R.id.alertdialog_course_message_school);
+        TextView textView_room = linearLayout.findViewById(R.id.alertdialog_course_message_room);
+        while (cursor.moveToNext()) {
+            textView_name.setText(getActivity().getText(R.string.course_name)+cursor.getString(cursor.getColumnIndex("ClassName")));
+            textView_id.setText(getActivity().getText(R.string.course_id)+cursor.getString(cursor.getColumnIndex("ClassId")));
+            textView_credit.setText(getActivity().getText(R.string.credit)+cursor.getString(cursor.getColumnIndex("Credit")));
+            textView_attribute.setText(getActivity().getText(R.string.course_attribute)+cursor.getString(cursor.getColumnIndex("ClassAttribute")));
+            textView_examattribute.setText(getActivity().getText(R.string.exam_attribute)+cursor.getString(cursor.getColumnIndex("ExamAttribute")));
+            textView_week.setText(getActivity().getText(R.string.weeks)+cursor.getString(cursor.getColumnIndex("Week")));
+            int count=Integer.valueOf(cursor.getString(cursor.getColumnIndex("Count")));
+            int start=Integer.valueOf(cursor.getString(cursor.getColumnIndex("Time")));
+            textView_time.setText(getActivity().getText(R.string.course_time)+String.valueOf(start)+"~"+String.valueOf(start+count-1));
+            textView_teacher.setText(getActivity().getText(R.string.teacher)+cursor.getString(cursor.getColumnIndex("Teacher")));
+            textView_school.setText(getActivity().getText(R.string.school)+cursor.getString(cursor.getColumnIndex("School")));
+            textView_room.setText(getActivity().getText(R.string.room)+cursor.getString(cursor.getColumnIndex("Building"))+cursor.getString(cursor.getColumnIndex("Room")));
+            break;
+        }
+        CourseMessage.setView(linearLayout)
+                .setPositiveButton(getActivity().getText(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton(getActivity().getText(R.string.edit), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        setEditView(item.getName(),item.getDay());
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    //设置课程编辑框
+    private void setEditView(String name,int day){
+
+        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getReadableDatabase();
+        String selection_name = name;
+        String selection_data = String.valueOf(day);
+        Cursor cursor = sqLiteDatabase.query("classes", new String[]{"ClassName", "ClassId", "Credit", "ClassAttribute", "ExamAttribute", "Teacher", "Week", "Data", "Count", "School", "Building", "Room", "Time"}, "ClassName=? and Data=?", new String[]{selection_name, selection_data}, null, null, null);
+
+
+        android.app.AlertDialog.Builder CourseEditor = new android.app.AlertDialog.Builder(getActivity());
+        LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_course_editor, null);  //从另外的布局关联组件
+        EditText textView_name = linearLayout.findViewById(R.id.alertdialog_course_message_editText_name);
+        EditText textView_id = linearLayout.findViewById(R.id.alertdialog_course_message_editText_id);
+        EditText textView_credit = linearLayout.findViewById(R.id.alertdialog_course_message_editText_credit);
+        EditText textView_attribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_attribute);
+        EditText textView_examattribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_examAttribute);
+        EditText textView_week = linearLayout.findViewById(R.id.alertdialog_course_message_editText_week);
+        EditText textView_time = linearLayout.findViewById(R.id.alertdialog_course_message_editText_time);
+        EditText textView_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_editText_teacher);
+        EditText textView_school = linearLayout.findViewById(R.id.alertdialog_course_message_editText_school);
+        EditText textView_room = linearLayout.findViewById(R.id.alertdialog_course_message_editText_room);
+
+
+        while(cursor.moveToNext()) {
+            textView_name.setHint(cursor.getString(cursor.getColumnIndex("ClassName")));
+            textView_id.setHint(cursor.getString(cursor.getColumnIndex("ClassId")));
+            textView_credit.setHint(cursor.getString(cursor.getColumnIndex("Credit")));
+            textView_attribute.setHint(cursor.getString(cursor.getColumnIndex("ClassAttribute")));
+            textView_examattribute.setHint(cursor.getString(cursor.getColumnIndex("ExamAttribute")));
+            textView_teacher.setHint(cursor.getString(cursor.getColumnIndex("Teacher")));
+            textView_school.setHint(cursor.getString(cursor.getColumnIndex("School")));
+            textView_room.setHint(cursor.getString(cursor.getColumnIndex("Building"))+cursor.getString(cursor.getColumnIndex("Room")));
+            break;
+        }
+
+        CourseEditor.setCancelable(false);
+        CourseEditor.setView(linearLayout)
+                .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton(getActivity().getString(R.string.cancel),null)
+                .create()
+                .show();
     }
 
     //获取课程的线程
