@@ -85,4 +85,7 @@
     <string name="refresh_timetable">刷新课程表</string>
     <string name="change_week">更改显示周数</string>
     <string name="set_start_week">设置初始周数</string>
-    </resources>
+    <string name="frount_week">上一周</string>
+    <string name="next_week">下一周</string>
+    <string name="back_to_now">返回本周</string>
+</resources>

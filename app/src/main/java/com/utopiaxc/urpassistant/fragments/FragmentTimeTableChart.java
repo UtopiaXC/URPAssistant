@@ -51,14 +51,15 @@ import java.util.Objects;
 
 public class FragmentTimeTableChart extends Fragment {
     private TimetableView timetableView;
-    private WeekView weekView;
     private String handlerMessage = null;
     private static ProgressDialog getTimetableDialog = null;
+    private TextView textView_frount;
+    private TextView textView_now;
+    private TextView textView_next;
 
     //设置菜单UI
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Auto-generated method stub
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_timetable_menu, menu);
     }
@@ -189,7 +190,7 @@ public class FragmentTimeTableChart extends Fragment {
             }
         } else {
             int weeks = sharedPreferences_curWeek.getInt("Week", 1);
-            System.out.println("Test"+weeks);
+            System.out.println("Test" + weeks);
             getActivity().setTitle(getString(R.string.title_table) + "-" + "第" + weeks + "周");
         }
         System.out.println("SetView");
@@ -201,9 +202,10 @@ public class FragmentTimeTableChart extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        weekView=getActivity().findViewById(R.id.weekChanger);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+
+        setTextViewButton();
 
         if (!sharedPreferences.getBoolean("ClassIsGot", false)) {
             new AlertDialog.Builder(getActivity())
@@ -233,7 +235,60 @@ public class FragmentTimeTableChart extends Fragment {
     }
 
 
+    private void setTextViewButton() {
+        textView_frount = getActivity().findViewById(R.id.textView_frount);
+        textView_now = getActivity().findViewById(R.id.textView_now);
+        textView_next = getActivity().findViewById(R.id.textView_next);
 
+        textView_frount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cur = timetableView.curWeek();
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isCurWeek", false);
+                editor.putInt("Week", cur-1);
+                editor.commit();
+                SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
+                editor_toActivity.putInt("Start", 2);
+                editor_toActivity.commit();
+                Intent intent = new Intent(getActivity(), ActivityMain.class);
+                startActivity(intent);
+            }
+        });
+
+        textView_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
+                editor_toActivity.putInt("Start", 2);
+                editor_toActivity.commit();
+                Intent intent = new Intent(getActivity(), ActivityMain.class);
+                startActivity(intent);
+            }
+        });
+
+        textView_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cur = timetableView.curWeek();
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isCurWeek", false);
+                editor.putInt("Week", cur+1);
+                editor.commit();
+                SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
+                editor_toActivity.putInt("Start", 2);
+                editor_toActivity.commit();
+                Intent intent = new Intent(getActivity(), ActivityMain.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 
     //设置表内容
     @SuppressLint("Range")
@@ -301,157 +356,64 @@ public class FragmentTimeTableChart extends Fragment {
 
         }
 
+        timetableView.showDateView();
+        timetableView.data(schedules)
+                .alpha((float) 50, (float) 0, (float) 100)
+                .monthWidthDp(20)
+                .callback(new ISchedule.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, List<Schedule> scheduleList) {
+                        for (Schedule a : scheduleList) {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle(a.getName())
+                                    .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
+                                    .create()
+                                    .show();
+                        }
+                    }
+                });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
         String start = sharedPreferences.getString("StartWeek", "NULL");
         SharedPreferences sharedPreferences_curWeek = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
         boolean curWeek = sharedPreferences_curWeek.getBoolean("isCurWeek", true);
-        if (curWeek) {
-            if (start.equals("NULL")) {
-                timetableView.showDateView();
-                timetableView.data(schedules)
-                        .curWeek(1)
-                        .alpha((float) 50, (float) 0, (float) 100)
-                        .monthWidthDp(20)
-                        .callback(new ISchedule.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, List<Schedule> scheduleList) {
-                                for (Schedule a : scheduleList) {
-                                    new AlertDialog.Builder(getActivity())
-                                            .setTitle(a.getName())
-                                            .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                            .create()
-                                            .show();
-                                }
-                            }
-                        })
+        if (start.equals("NULL")) {
+            timetableView.curWeek(1)
+                    .showView();
+            return;
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setFirstDayOfWeek(2);
+            int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
+            calendar.setTime(dateFormat.parse(start));
+            int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+            if (end_week - start_week < 1) {
+                timetableView.curWeek(1)
                         .showView();
                 return;
             }
-
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
-            try {
-
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setFirstDayOfWeek(2);
-
-                int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
-
-
-                calendar.setTime(dateFormat.parse(start));
-
-                int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
-
-
-                if (end_week - start_week < 1) {
-                    timetableView.showDateView();
-                    timetableView.data(schedules)
-                            .curWeek(1)
-                            .alpha((float) 50, (float) 0, (float) 100)
-                            .monthWidthDp(20)
-                            .callback(new ISchedule.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View v, List<Schedule> scheduleList) {
-                                    for (Schedule a : scheduleList) {
-                                        new AlertDialog.Builder(getActivity())
-                                                .setTitle(a.getName())
-                                                .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                                .create()
-                                                .show();
-                                    }
-                                }
-                            })
-                            .showView();
-                    return;
-                }
-
-                timetableView.showDateView();
-                timetableView.data(schedules)
-                        .curWeek(end_week - start_week + 1)
-                        .alpha((float) 50, (float) 0, (float) 100)
-                        .monthWidthDp(20)
-                        .callback(new ISchedule.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, List<Schedule> scheduleList) {
-                                for (Schedule a : scheduleList) {
-                                    new AlertDialog.Builder(getActivity())
-                                            .setTitle(a.getName())
-                                            .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                            .create()
-                                            .show();
-                                }
-                            }
-                        })
-
-                        .showView();
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-                timetableView.data(schedules)
-                        .curWeek(1)
-                        .alpha((float) 50, (float) 0, (float) 100)
-                        .monthWidthDp(20)
-                        .callback(new ISchedule.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View v, List<Schedule> scheduleList) {
-                                for (Schedule a : scheduleList) {
-                                    new AlertDialog.Builder(getActivity())
-                                            .setTitle(a.getName())
-                                            .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                            .create()
-                                            .show();
-                                }
-                            }
-                        })
-                        .showView();
-            }
-        } else {
-            timetableView.hideDateView();
-            timetableView.data(schedules)
-                    .curWeek(sharedPreferences_curWeek.getInt("Week", 1))
-                    .alpha((float) 50, (float) 0, (float) 100)
-                    .monthWidthDp(20)
-                    .callback(new ISchedule.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View v, List<Schedule> scheduleList) {
-                            for (Schedule a : scheduleList) {
-                                new AlertDialog.Builder(getActivity())
-                                        .setTitle(a.getName())
-                                        .setMessage(a.getTeacher() + "\n" + a.getRoom() + "\n")
-                                        .create()
-                                        .show();
-                            }
-                        }
-                    })
+            timetableView.curWeek(end_week - start_week + 1)
                     .showView();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            timetableView.curWeek(1)
+                    .showView();
+        }
+        if (!curWeek) {
+            int cur = timetableView.curWeek();
+            int to_week = sharedPreferences_curWeek.getInt("Week", 1);
+            //更新切换后的日期，从当前周cur->切换的周week
+            timetableView.onDateBuildListener()
+                    .onUpdateDate(cur, to_week);
+            timetableView.changeWeekForce(to_week);
             SharedPreferences.Editor editor = sharedPreferences_curWeek.edit();
             editor.putBoolean("isCurWeek", true);
             editor.commit();
         }
-
-        //设置周次选择属性
-        weekView
-                .curWeek(1)
-                .callback(new IWeekView.OnWeekItemClickedListener() {
-                    @Override
-                    public void onWeekClicked(int week) {
-                        int cur = timetableView.curWeek();
-                        //更新切换后的日期，从当前周cur->切换的周week
-                        timetableView.onDateBuildListener()
-                                .onUpdateDate(cur, week);
-                        //课表切换周次
-                        timetableView.changeWeekOnly(week);
-                    }
-                })
-                .callback(new IWeekView.OnWeekLeftClickedListener() {
-                    @Override
-                    public void onWeekLeftClicked() {
-                    }
-                })
-                .isShow(false)//设置隐藏，默认显示
-                .showView();
-
     }
 
     //获取课程的线程
