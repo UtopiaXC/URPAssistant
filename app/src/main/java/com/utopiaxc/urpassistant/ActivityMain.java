@@ -85,30 +85,19 @@ public class ActivityMain extends AppCompatActivity {
 
         if (sharedPreferences.getInt("Start", 1) == 1) {
             if (sharedPreferences.getInt("Start_first", 1) == 1) {
-                FragmentHome fragmentHome = new FragmentHome();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frameLayout, fragmentHome)
-                        .commitAllowingStateLoss();
+                System.out.println("StartViewByStart1AndStartFirst1");
                 navView.setSelectedItemId(R.id.navigation_home);
             } else if (sharedPreferences.getInt("Start_first", 1) == 2) {
+                System.out.println("StartViewByStart1AndStartFirst2AndMore");
                 navView.setSelectedItemId(R.id.navigation_table);
-                setFragment();
-
             }
         } else if (sharedPreferences.getInt("Start", 1) == 2) {
-            navView.setSelectedItemId(R.id.navigation_table);
-            setFragment();
+            System.out.println("StartViewByStart2AndMore");
             editor.putInt("Start", 1);
             editor.commit();
+            navView.setSelectedItemId(R.id.navigation_table);
         } else if (sharedPreferences.getInt("Start", 1) == 3) {
-            FragmentCenter fragmentCenter = new FragmentCenter();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.frameLayout, fragmentCenter)
-                    .commitAllowingStateLoss();
+            System.out.println("StartViewByStart3");
             navView.setSelectedItemId(R.id.navigation_notifications);
             editor.putInt("Start", 1);
             editor.commit();
@@ -126,6 +115,7 @@ public class ActivityMain extends AppCompatActivity {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTable)
                     .commitAllowingStateLoss();
+            System.out.println("View0");
         } else if (sharedPreferences.getInt("Layout", 0) == 1) {
             FragmentTimeTableChart fragmentTimeTableChart = new FragmentTimeTableChart();
             getSupportFragmentManager()
@@ -133,6 +123,7 @@ public class ActivityMain extends AppCompatActivity {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTableChart)
                     .commitAllowingStateLoss();
+            System.out.println("View1");
         } else if (sharedPreferences.getInt("Layout", 0) == 2) {
             FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
             getSupportFragmentManager()
@@ -140,6 +131,7 @@ public class ActivityMain extends AppCompatActivity {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.frameLayout, fragmentTimeTable)
                     .commitAllowingStateLoss();
+            System.out.println("View2");
         }
     }
 
