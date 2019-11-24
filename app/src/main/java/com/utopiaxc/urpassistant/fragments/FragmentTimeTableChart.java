@@ -37,7 +37,9 @@ import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import com.zhuangfei.timetable.TimetableView;
 import com.zhuangfei.timetable.listener.ISchedule;
+import com.zhuangfei.timetable.listener.IWeekView;
 import com.zhuangfei.timetable.model.Schedule;
+import com.zhuangfei.timetable.view.WeekView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -49,6 +51,7 @@ import java.util.Objects;
 
 public class FragmentTimeTableChart extends Fragment {
     private TimetableView timetableView;
+    private WeekView weekView;
     private String handlerMessage = null;
     private static ProgressDialog getTimetableDialog = null;
 
@@ -198,7 +201,7 @@ public class FragmentTimeTableChart extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-
+        weekView=getActivity().findViewById(R.id.weekChanger);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
 
@@ -228,6 +231,9 @@ public class FragmentTimeTableChart extends Fragment {
 
 
     }
+
+
+
 
     //设置表内容
     @SuppressLint("Range")
@@ -423,6 +429,29 @@ public class FragmentTimeTableChart extends Fragment {
             editor.putBoolean("isCurWeek", true);
             editor.commit();
         }
+
+        //设置周次选择属性
+        weekView
+                .curWeek(1)
+                .callback(new IWeekView.OnWeekItemClickedListener() {
+                    @Override
+                    public void onWeekClicked(int week) {
+                        int cur = timetableView.curWeek();
+                        //更新切换后的日期，从当前周cur->切换的周week
+                        timetableView.onDateBuildListener()
+                                .onUpdateDate(cur, week);
+                        //课表切换周次
+                        timetableView.changeWeekOnly(week);
+                    }
+                })
+                .callback(new IWeekView.OnWeekLeftClickedListener() {
+                    @Override
+                    public void onWeekLeftClicked() {
+                    }
+                })
+                .isShow(false)//设置隐藏，默认显示
+                .showView();
+
     }
 
     //获取课程的线程
