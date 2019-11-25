@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="NAME" />
+            android:inputType="textPersonName"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,8 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="ID" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,8 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="CREDIT" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,8 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="ATTRIBUTE" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
 
@@ -120,8 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="EXAMATTRIBUTE" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -189,8 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="TEACHER" />
+            android:inputType="textPersonName"/>
     </LinearLayout>
 
     <LinearLayout
@@ -212,8 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="SCHOOL" />
+            android:inputType="textPersonName"/>
     </LinearLayout>
 
     <LinearLayout
@@ -234,8 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="ROOM" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
 </LinearLayout>

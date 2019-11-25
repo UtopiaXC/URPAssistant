@@ -88,4 +88,9 @@
     <string name="exam_message">Exam Messages</string>
     <string name="hint_weeks">Please use "," to divide numbers!</string>
     <string name="hint_time">Please use "~" to input</string>
+    <string name="count_of_course">Course Count:</string>
+    <string name="alert_time">Please enter a number at max 12 and min 1</string>
+    <string name="hint_default_unknown">Default UnKnown(Optional)</string>
+    <string name="unknown">UnKnown</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -97,4 +97,9 @@
     <string name="exam_message">考试信息</string>
     <string name="hint_weeks">请使用半角“,”来分隔周序</string>
     <string name="hint_time">请使用“~”分隔上课节次</string>
+    <string name="count_of_course">持续节数：</string>
+    <string name="alert_time">一个大于0小于12的整数，请不要越界</string>
+    <string name="hint_default_unknown">默认未知（选填）</string>
+    <string name="unknown">未知</string>
+    <string name="delete">删除</string>
 </resources>

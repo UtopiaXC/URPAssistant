@@ -13,6 +13,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.renderscript.ScriptGroup;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -374,6 +376,12 @@ public class FragmentTimeTableChart extends Fragment {
                             setItemOnClickListener(item);
                         }
                     }
+                })
+                .callback(new ISchedule.OnFlaglayoutClickListener() {
+                    @Override
+                    public void onFlaglayoutClick(int day, int start) {
+                        setFlagOnClickListenser(day, start);
+                    }
                 });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
@@ -471,6 +479,133 @@ public class FragmentTimeTableChart extends Fragment {
                 })
                 .create()
                 .show();
+    }
+
+    //设置旗标监听
+    private void setFlagOnClickListenser(int data, int start) {
+        android.app.AlertDialog.Builder AddCourse = new android.app.AlertDialog.Builder(getActivity());
+        LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_course_editor, null);  //从另外的布局关联组件
+
+        TextView textView_count = linearLayout.findViewById(R.id.alertdialog_course_message_time);
+
+        textView_count.setText(getActivity().getString(R.string.count_of_course));
+
+        EditText editText_name = linearLayout.findViewById(R.id.alertdialog_course_message_editText_name);
+        EditText editText_id = linearLayout.findViewById(R.id.alertdialog_course_message_editText_id);
+        editText_id.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_credit = linearLayout.findViewById(R.id.alertdialog_course_message_editText_credit);
+        editText_credit.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_attribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_attribute);
+        editText_attribute.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_examattribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_examAttribute);
+        editText_examattribute.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_editText_teacher);
+        editText_teacher.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_school = linearLayout.findViewById(R.id.alertdialog_course_message_editText_school);
+        editText_school.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_room = linearLayout.findViewById(R.id.alertdialog_course_message_editText_room);
+        editText_room.setHint(getActivity().getString(R.string.hint_default_unknown));
+        EditText editText_week = linearLayout.findViewById(R.id.alertdialog_course_message_editText_week);
+        EditText editText_time = linearLayout.findViewById(R.id.alertdialog_course_message_editText_time);
+
+        editText_time.setHint(getActivity().getString(R.string.alert_time));
+        editText_time.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+
+        AddCourse.setView(linearLayout)
+                .setNegativeButton(getActivity().getString(R.string.cancel), null)
+                .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String CourseNmae = editText_name.getText().toString();
+                        String ID = editText_id.getText().toString();
+                        String Credit = editText_credit.getText().toString();
+                        String Attribute = editText_attribute.getText().toString();
+                        String ExamAttribute = editText_examattribute.getText().toString();
+                        String Teacher = editText_teacher.getText().toString();
+                        String School = editText_school.getText().toString();
+                        String Room = editText_room.getText().toString();
+                        String Week = editText_week.getText().toString();
+                        String Time = editText_time.getText().toString();
+
+
+                        if (CourseNmae.equals("") || Week.equals("") || Time.equals("")) {
+                            handlerMessage = "blank";
+                            create_handler.sendMessage(create_handler.obtainMessage());
+                            return;
+                        }
+
+                        if (!checkWeek(Week)) {
+                            handlerMessage = "WeekError";
+                            create_handler.sendMessage(create_handler.obtainMessage());
+                            return;
+                        }
+                        int count_insert = 0;
+                        try {
+                            count_insert = Integer.valueOf(Time);
+                        } catch (Exception e) {
+                            handlerMessage = "CountError";
+                            create_handler.sendMessage(create_handler.obtainMessage());
+
+                        }
+                        if (start + count_insert - 1 > 12) {
+                            handlerMessage = "CountError";
+                            create_handler.sendMessage(create_handler.obtainMessage());
+                            return;
+                        }
+
+                        ContentValues values = new ContentValues();
+                        values.put("ClassName", CourseNmae);
+                        values.put("Week", Week);
+                        values.put("Data", data + 1);
+                        values.put("Time", start);
+                        values.put("Count", count_insert);
+                        values.put("Building", "");
+                        values.put("Way", "");
+                        if (ID.equals(""))
+                            values.put("ClassId", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("ClassId", ID);
+
+                        if (Credit.equals(""))
+                            values.put("Credit", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("Credit", Credit);
+
+                        if (Attribute.equals(""))
+                            values.put("ClassAttribute", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("ClassAttribute", Attribute);
+
+                        if (ExamAttribute.equals(""))
+                            values.put("ExamAttribute", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("ExamAttribute", ExamAttribute);
+
+                        if (Teacher.equals(""))
+                            values.put("Teacher", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("Teacher", Teacher);
+
+                        if (School.equals(""))
+                            values.put("School", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("School", School);
+
+                        if (Room.equals(""))
+                            values.put("Room", getActivity().getString(R.string.unknown));
+                        else
+                            values.put("Room", Room);
+
+                        SQLHelperTimeTable sql = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+                        SQLiteDatabase sqliteDatabase = sql.getWritableDatabase();
+                        sqliteDatabase.insert("classes", null, values);
+                        setTimetableView();
+                    }
+                })
+                .create()
+                .show();
+
     }
 
     //设置课程编辑框
@@ -605,7 +740,7 @@ public class FragmentTimeTableChart extends Fragment {
                         }
 
                         if (!textView_week.getText().toString().equals("")) {
-                            if (chechWeek(textView_week.getText().toString())) {
+                            if (checkWeek(textView_week.getText().toString())) {
                                 ContentValues contentValues = new ContentValues();
                                 contentValues.put("Week", textView_week.getText().toString());
                                 sqLiteDatabase.update("classes",
@@ -622,28 +757,39 @@ public class FragmentTimeTableChart extends Fragment {
                                 contentValues.put("Time", start);
                                 sqLiteDatabase.update("classes",
                                         contentValues,
-                                        "ClassName = ? and Data=?",
+                                        "ClassName = ? and Data = ?",
                                         new String[]{name, String.valueOf(day)});
 
                                 ContentValues contentValues1 = new ContentValues();
                                 contentValues.put("Count", count);
                                 sqLiteDatabase.update("classes",
                                         contentValues1,
-                                        "ClassName = ? and Data=?",
+                                        "ClassName = ? and Data = ?",
                                         new String[]{name, String.valueOf(day)});
 
                             }
                         }
 
                         setTimetableView();
+                        sqLiteDatabase.close();
                     }
                 })
                 .setNegativeButton(getActivity().getString(R.string.cancel), null)
+                .setNeutralButton(getActivity().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+                        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getWritableDatabase();
+                        sqLiteDatabase.delete("classes", "ClassName = ? and Data = ?", new String[]{name, String.valueOf(day)});
+                        setTimetableView();
+                    }
+                })
                 .create()
                 .show();
     }
 
-    boolean chechWeek(String weeks) {
+    //检查周格式
+    boolean checkWeek(String weeks) {
         String reg = "[^0-9,]";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(weeks);
@@ -784,6 +930,42 @@ public class FragmentTimeTableChart extends Fragment {
                     .create()
                     .show();
             handlerMessage = "";
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler create_handler = new Handler() {
+        @SuppressLint("ShowToast")
+        @Override
+        public void handleMessage(Message msg) {
+            if (handlerMessage.equals("blank")) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getActivity().getString(R.string.error))
+                        .setMessage("存在必填项空置，请重新设置")
+                        .setPositiveButton(getActivity().getString(R.string.confirm), null)
+                        .create()
+                        .show();
+                handlerMessage = "";
+            }
+            if (handlerMessage.equals("WeekError")) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getActivity().getString(R.string.error))
+                        .setMessage("周数信息错误，请重新设置")
+                        .setPositiveButton(getActivity().getString(R.string.confirm), null)
+                        .create()
+                        .show();
+                handlerMessage = "";
+            }
+            if (handlerMessage.equals("CountError")) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getActivity().getString(R.string.error))
+                        .setMessage("节次信息错误，请重新设置")
+                        .setPositiveButton(getActivity().getString(R.string.confirm), null)
+                        .create()
+                        .show();
+                handlerMessage = "";
+            }
+
         }
     };
 
