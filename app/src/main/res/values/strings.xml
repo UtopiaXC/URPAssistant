@@ -93,4 +93,8 @@
     <string name="hint_default_unknown">Default UnKnown(Optional)</string>
     <string name="unknown">UnKnown</string>
     <string name="delete">Delete</string>
+    <string name="editor_error">The Week or Count Message You Inputted Error,Other Modify Saved</string>
+    <string name="blank_error">You Have a Required Field Unfilled</string>
+    <string name="week_error">Week Message You Inputted Error</string>
+    <string name="count_error">Count Message You Inputted Error</string>
 </resources>

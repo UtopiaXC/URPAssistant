@@ -530,7 +530,7 @@ public class FragmentTimeTableChart extends Fragment {
 
 
                         if (CourseNmae.equals("") || Week.equals("") || Time.equals("")) {
-                            handlerMessage = "blank";
+                            handlerMessage = "BlankError";
                             create_handler.sendMessage(create_handler.obtainMessage());
                             return;
                         }
@@ -747,7 +747,8 @@ public class FragmentTimeTableChart extends Fragment {
                                         contentValues,
                                         "ClassName = ? and Data=?",
                                         new String[]{name, String.valueOf(day)});
-                            }
+                            }else
+                                update_handler.sendMessage(update_handler.obtainMessage());
 
                         }
 
@@ -767,7 +768,9 @@ public class FragmentTimeTableChart extends Fragment {
                                         "ClassName = ? and Data = ?",
                                         new String[]{name, String.valueOf(day)});
 
-                            }
+                            }else
+                                update_handler.sendMessage(update_handler.obtainMessage());
+
                         }
 
                         setTimetableView();
@@ -795,9 +798,7 @@ public class FragmentTimeTableChart extends Fragment {
         Matcher matcher = pattern.matcher(weeks);
         boolean isMatch = matcher.find();
         if (isMatch || weeks.charAt(0) == ',' || weeks.charAt(weeks.length() - 1) == ',') {
-            handlerMessage = "设置周存格式有误";
-            update_handler.sendMessage(update_handler.obtainMessage());
-            return false;
+           return false;
         }
         String week[] = weeks.split(",");
         for (String week_match : week) {
@@ -805,12 +806,9 @@ public class FragmentTimeTableChart extends Fragment {
                 week_match = week_match.replace(",", "");
                 int week_int = Integer.valueOf(week_match);
                 if (week_int < 0 || week_int > 25) {
-                    handlerMessage = "设置周存在超限数据";
-                    update_handler.sendMessage(update_handler.obtainMessage());
                     return false;
                 }
             } catch (Exception e) {
-                handlerMessage = "设置周存在非法数字";
                 return false;
             }
         }
@@ -824,14 +822,10 @@ public class FragmentTimeTableChart extends Fragment {
         Matcher matcher = pattern.matcher(times);
         boolean isMatch = matcher.find();
         if (isMatch || times.charAt(0) == '~' || times.charAt(times.length() - 1) == '~' || !times.contains("~")) {
-            handlerMessage = "设置节次格式有误";
-            update_handler.sendMessage(update_handler.obtainMessage());
             return false;
         }
         String time[] = times.split("~");
         if (time.length != 2) {
-            handlerMessage = "设置节次中有超过一个“~”";
-            update_handler.sendMessage(update_handler.obtainMessage());
             return false;
         }
 
@@ -846,23 +840,16 @@ public class FragmentTimeTableChart extends Fragment {
                 int time_int = Integer.valueOf(time_match);
                 System.out.println(time_int);
                 if (time_int < 0 || time_int > 12) {
-                    handlerMessage = "设置节次存在超限数据";
-                    update_handler.sendMessage(update_handler.obtainMessage());
-                    return false;
+                     return false;
                 }
                 if (flag)
                     start = time_int;
                 end = time_int;
             } catch (Exception e) {
-                handlerMessage = "设置节次存在非法数字";
-                update_handler.sendMessage(update_handler.obtainMessage());
-                return false;
+                 return false;
             }
-
-            count = end - start - 1;
-            return true;
-
         }
+        count = end - start - 1;
         return true;
     }
 
@@ -925,7 +912,7 @@ public class FragmentTimeTableChart extends Fragment {
         public void handleMessage(Message msg) {
             new AlertDialog.Builder(getActivity())
                     .setTitle(getActivity().getString(R.string.error))
-                    .setMessage("设置节次或周数存在格式错误（如本提示框出现两遍则表示两者均有错误）" + "\n" + "其他更改已保存")
+                    .setMessage(getActivity().getString(R.string.editor_error))
                     .setPositiveButton(getActivity().getString(R.string.confirm), null)
                     .create()
                     .show();
@@ -938,10 +925,10 @@ public class FragmentTimeTableChart extends Fragment {
         @SuppressLint("ShowToast")
         @Override
         public void handleMessage(Message msg) {
-            if (handlerMessage.equals("blank")) {
+            if (handlerMessage.equals("BlankError")) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle(getActivity().getString(R.string.error))
-                        .setMessage("存在必填项空置，请重新设置")
+                        .setMessage(getActivity().getString(R.string.blank_error))
                         .setPositiveButton(getActivity().getString(R.string.confirm), null)
                         .create()
                         .show();
@@ -950,7 +937,7 @@ public class FragmentTimeTableChart extends Fragment {
             if (handlerMessage.equals("WeekError")) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle(getActivity().getString(R.string.error))
-                        .setMessage("周数信息错误，请重新设置")
+                        .setMessage(getActivity().getString(R.string.week_error))
                         .setPositiveButton(getActivity().getString(R.string.confirm), null)
                         .create()
                         .show();
@@ -959,7 +946,7 @@ public class FragmentTimeTableChart extends Fragment {
             if (handlerMessage.equals("CountError")) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle(getActivity().getString(R.string.error))
-                        .setMessage("节次信息错误，请重新设置")
+                        .setMessage(getActivity().getString(R.string.count_error))
                         .setPositiveButton(getActivity().getString(R.string.confirm), null)
                         .create()
                         .show();
