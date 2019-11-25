@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -10,38 +12,39 @@
         android:orientation="horizontal">
 
 
-        <TextView
+        <com.dd.processbutton.FlatButton
             android:id="@+id/textView_frount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="textStart"
-            android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:textSize="16sp"
-            android:text="@string/frount_week" />
+            android:text="@string/frount_week"
+            app:pb_colorNormal="#FFFFFF"
+            app:pb_colorPressed="#F0F0F0"/>
 
-        <TextView
+        <com.dd.processbutton.FlatButton
             android:id="@+id/textView_now"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="16sp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
             android:textAlignment="center"
-            android:text="@string/back_to_now" />
+            android:text="@string/back_to_now"
+            app:pb_colorNormal="#FFFFFF"
+            app:pb_colorPressed="#F0F0F0"/>
 
-        <TextView
+        <com.dd.processbutton.FlatButton
             android:id="@+id/textView_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:textSize="16sp"
             android:textAlignment="textEnd"
-            android:text="@string/next_week" />
+            android:text="@string/next_week"
+            app:pb_colorNormal="#FFFFFF"
+            app:pb_colorPressed="#F0F0F0"/>
     </LinearLayout>
 
     <com.zhuangfei.timetable.TimetableView

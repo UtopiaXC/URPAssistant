@@ -78,7 +78,7 @@ public class ActivityGradeList extends AppCompatActivity {
 
     //设置外观
     private void setListView(){
-        SQLHelperGradesList sqlHelperGradesList = new SQLHelperGradesList(this,"URP",null,2);
+        SQLHelperGradesList sqlHelperGradesList = new SQLHelperGradesList(this,"URP_Grade",null,2);
         SQLiteDatabase sqLiteDatabase=sqlHelperGradesList.getReadableDatabase();
         List<Map<String, Object>> listitem = new ArrayList<Map<String, Object>>();
 

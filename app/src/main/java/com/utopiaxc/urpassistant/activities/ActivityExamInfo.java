@@ -74,7 +74,7 @@ public class ActivityExamInfo extends AppCompatActivity {
 
     //设置外观
     public void setListView() {
-        SQLHelperExamInfo sqlHelperExamInfo = new SQLHelperExamInfo(this,"URP",null,2);
+        SQLHelperExamInfo sqlHelperExamInfo = new SQLHelperExamInfo(this,"URP_Exam",null,2);
         SQLiteDatabase sqLiteDatabase=sqlHelperExamInfo.getReadableDatabase();
         List<Map<String, Object>> listitem = new ArrayList<Map<String, Object>>();
 

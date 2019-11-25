@@ -37,6 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.dd.processbutton.FlatButton;
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
@@ -61,9 +62,9 @@ public class FragmentTimeTableChart extends Fragment {
     private TimetableView timetableView;
     private String handlerMessage = null;
     private static ProgressDialog getTimetableDialog = null;
-    private TextView textView_frount;
-    private TextView textView_now;
-    private TextView textView_next;
+    private FlatButton flatButton_frount;
+    private FlatButton flatButton_now;
+    private FlatButton flatButton_next;
     int start;
     int end;
     int count;
@@ -89,8 +90,8 @@ public class FragmentTimeTableChart extends Fragment {
                 RelativeLayout relativeLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.alertdialog_number_picker, null);  //从另外的布局关联组件
 
                 final NumberPicker numberPicker = relativeLayout.findViewById(R.id.numberPicker);
-                final Button confirm = relativeLayout.findViewById(R.id.numberPicker_confirm);
-                final Button cancel = relativeLayout.findViewById(R.id.numberPicker_cancel);
+                final FlatButton confirm = relativeLayout.findViewById(R.id.numberPicker_confirm);
+                final FlatButton cancel = relativeLayout.findViewById(R.id.numberPicker_cancel);
                 numberPicker.setMinValue(1);
                 numberPicker.setMaxValue(25);
 
@@ -278,11 +279,11 @@ public class FragmentTimeTableChart extends Fragment {
         }
 
 
-        textView_frount = getActivity().findViewById(R.id.textView_frount);
-        textView_now = getActivity().findViewById(R.id.textView_now);
-        textView_next = getActivity().findViewById(R.id.textView_next);
+        flatButton_frount = getActivity().findViewById(R.id.textView_frount);
+        flatButton_now = getActivity().findViewById(R.id.textView_now);
+        flatButton_next = getActivity().findViewById(R.id.textView_next);
 
-        textView_frount.setOnClickListener(new View.OnClickListener() {
+        flatButton_frount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int cur = timetableView.curWeek();
@@ -301,7 +302,7 @@ public class FragmentTimeTableChart extends Fragment {
             }
         });
 
-        textView_now.setOnClickListener(new View.OnClickListener() {
+        flatButton_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
@@ -314,7 +315,7 @@ public class FragmentTimeTableChart extends Fragment {
             }
         });
 
-        textView_next.setOnClickListener(new View.OnClickListener() {
+        flatButton_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int cur = timetableView.curWeek();

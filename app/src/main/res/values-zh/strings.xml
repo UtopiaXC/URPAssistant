@@ -23,13 +23,18 @@
     <string name="tag_license">优秀的项目离不开开源项目的支持，感谢你们！</string>
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
-        开发快照版本\n
-        v1.0.1-beta13\n
-        本次更新内容\n
-        #1 修复了修改周数后无法正确显示的问题\n
-        #2 修复了打开课程表时创建两次的问题\n
-        #3 添加了快速切换周数的任务栏\n
-        #4 添加了修改课程的方法及界面\n
+        正式版\n
+        v1.0.1\n
+        URP助手正式发布\n
+        目前可以使用的功能\n
+        #1 课程表\n
+        #2 成绩单\n
+        #3 考试信息\n
+        #4 修改主页、主题、课程表格式\n
+        \n
+        更多功能正在开发，敬请期待\n
+        更多信息或提交issue请到Github\n
+        感谢您的使用\n
     </string>
     <string name="update_log_tag">最后一次更新内容</string>
     <string name="utopiaxc">UtopiaXC</string>

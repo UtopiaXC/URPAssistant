@@ -284,7 +284,7 @@ public class FunctionsPublicBasic {
         if(!getDocument(address+"/gradeLnAllAction.do?type=ln&oper=sxinfo&lnsxdm=001"))
             return false;
         try{
-            SQLHelperGradesList sqlHelperGradesList=new SQLHelperGradesList(context,"URP",null,2);
+            SQLHelperGradesList sqlHelperGradesList=new SQLHelperGradesList(context,"URP_Grade",null,2);
             SQLiteDatabase sqLiteDatabase=sqlHelperGradesList.getWritableDatabase();
             sqLiteDatabase.execSQL("delete from grades");
 
@@ -350,7 +350,7 @@ public class FunctionsPublicBasic {
         if(!getDocument(address+"/ksApCxAction.do?oper=getKsapXx"))
             return false;
         try{
-            SQLHelperExamInfo sqlHelperExamInfo=new SQLHelperExamInfo(context,"URP",null,2);
+            SQLHelperExamInfo sqlHelperExamInfo=new SQLHelperExamInfo(context,"URP_Exam",null,2);
             SQLiteDatabase sqLiteDatabase=sqlHelperExamInfo.getWritableDatabase();
             sqLiteDatabase.execSQL("delete from exams");
 
