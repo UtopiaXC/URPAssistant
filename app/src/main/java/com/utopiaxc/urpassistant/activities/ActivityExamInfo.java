@@ -152,6 +152,7 @@ public class ActivityExamInfo extends AppCompatActivity {
         }
     }
 
+
     @SuppressLint("HandlerLeak")
     private Handler messageHandler = new Handler() {
         @Override
