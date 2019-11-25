@@ -42,7 +42,7 @@
     <string name="table_alert">Please choose a way how to show the timetable\n(you can change it in settings later)</string>
     <string name="timetable_chart">Weekly Two-dimensional chart</string>
     <string name="timetable_list">Daily List</string>
-    <string name="timetable_all_course_list">Whole list of course</string>
+    <string name="timetable_all_course_list">Whole list of course(Not recommended)</string>
     <string name="theme">Theme</string>
     <string name="timetable_layout">Layout of timetable</string>
     <string name="white">White(Not recommended)</string>
@@ -100,4 +100,5 @@
     <string name="week_fast_change">Show/Hide Fast Change Tool</string>
     <string name="exam_location">Exam Location:</string>
     <string name="exam_time">Exam Time:</string>
+    <string name="week_day">Week</string>
 </resources>

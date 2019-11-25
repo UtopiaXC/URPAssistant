@@ -152,7 +152,7 @@ public class ActivityExamInfo extends AppCompatActivity {
         }
     }
 
-
+    //异步消息同步
     @SuppressLint("HandlerLeak")
     private Handler messageHandler = new Handler() {
         @Override
@@ -168,6 +168,7 @@ public class ActivityExamInfo extends AppCompatActivity {
         }
     };
 
+    //返回键
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

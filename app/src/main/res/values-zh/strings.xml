@@ -51,7 +51,7 @@
     <string name="table_alert">请选择你的课程表布局方式\n（您也可以稍后在设置中进行更改）</string>
     <string name="timetable_chart">每周二维图表布局</string>
     <string name="timetable_list">每日列表布局</string>
-    <string name="timetable_all_course_list">全部课程列表</string>
+    <string name="timetable_all_course_list">全部课程列表（不推荐）</string>
     <string name="theme">主题</string>
     <string name="timetable_layout">课程表布局</string>
     <string name="white">白色（不推荐）</string>
@@ -109,4 +109,5 @@
     <string name="week_fast_change">显示/隐藏快速周切换</string>
     <string name="exam_location">考试地点：</string>
     <string name="exam_time">考试时间：</string>
+    <string name="week_day">星期</string>
 </resources>

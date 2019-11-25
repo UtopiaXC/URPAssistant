@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.utopiaxc.urpassistant.fragments.FragmentAllCourseList;
 import com.utopiaxc.urpassistant.fragments.FragmentCenter;
 import com.utopiaxc.urpassistant.fragments.FragmentHome;
 import com.utopiaxc.urpassistant.fragments.FragmentTimeTable;
@@ -125,11 +126,11 @@ public class ActivityMain extends AppCompatActivity {
                     .commitAllowingStateLoss();
             System.out.println("View1");
         } else if (sharedPreferences.getInt("Layout", 0) == 2) {
-            FragmentTimeTable fragmentTimeTable = new FragmentTimeTable();
+            FragmentAllCourseList fragmentAllCourseList = new FragmentAllCourseList();
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.frameLayout, fragmentTimeTable)
+                    .replace(R.id.frameLayout, fragmentAllCourseList)
                     .commitAllowingStateLoss();
             System.out.println("View2");
         }
