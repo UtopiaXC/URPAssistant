@@ -25,12 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AvctivityGradeList extends AppCompatActivity {
+public class ActivityGradeList extends AppCompatActivity {
     private ListView listView;
     private Context context=this;
     private MaterialRefreshLayout refresh;
     private String handerMessgae="";
 
+    //Activity入口
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences=getSharedPreferences("Theme", MODE_PRIVATE);
@@ -65,6 +66,7 @@ public class AvctivityGradeList extends AppCompatActivity {
 
     }
 
+    //设置刷新
     private void setRefres(){
         refresh.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
@@ -74,6 +76,7 @@ public class AvctivityGradeList extends AppCompatActivity {
         });
     }
 
+    //设置外观
     private void setListView(){
         SQLHelperGradesList sqlHelperGradesList = new SQLHelperGradesList(this,"URP",null,2);
         SQLiteDatabase sqLiteDatabase=sqlHelperGradesList.getReadableDatabase();
@@ -111,6 +114,7 @@ public class AvctivityGradeList extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    //获取成绩的线程
     class getGrade implements Runnable{
 
         @Override

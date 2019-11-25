@@ -21,4 +21,10 @@
         android:title="@string/set_start_week"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/fragment_timetable_fast_change"
+        android:orderInCategory="100"
+        android:title="@string/week_fast_change"
+        app:showAsAction="never" />
+
 </menu>

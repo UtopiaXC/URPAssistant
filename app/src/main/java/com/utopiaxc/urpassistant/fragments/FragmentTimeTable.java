@@ -47,6 +47,7 @@ public class FragmentTimeTable extends Fragment {
                 editor_toActivity.commit();
                 Intent intent=new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -63,6 +64,7 @@ public class FragmentTimeTable extends Fragment {
                 editor_toActivity.commit();
                 Intent intent=new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

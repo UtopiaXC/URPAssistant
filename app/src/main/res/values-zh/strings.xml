@@ -106,4 +106,7 @@
     <string name="blank_error">您有必填项目没有填写</string>
     <string name="week_error">您输入的周数格式错误</string>
     <string name="count_error">您输入的节次信息错误</string>
+    <string name="week_fast_change">显示/隐藏快速周切换</string>
+    <string name="exam_location">考试地点：</string>
+    <string name="exam_time">考试时间：</string>
 </resources>

@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.utopiaxc.urpassistant.R;
-import com.utopiaxc.urpassistant.activities.AvctivityGradeList;
+import com.utopiaxc.urpassistant.activities.ActivityExamInfo;
+import com.utopiaxc.urpassistant.activities.ActivityGradeList;
 import io.github.varenyzc.opensourceaboutpages.AboutPageMessageItem;
 import io.github.varenyzc.opensourceaboutpages.MessageCard;
 
@@ -46,19 +47,20 @@ public class FragmentHome extends Fragment {
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
                     public void onClick() {
-                        Intent intent=new Intent(getActivity(), AvctivityGradeList.class);
+                        Intent intent=new Intent(getActivity(), ActivityGradeList.class);
                         startActivity(intent);
                     }
                 });
         messageCard.addMessageItem(ItemHome_getGrades);
 
         AboutPageMessageItem ItemHome_getExams=new AboutPageMessageItem(getActivity())
-                .setIcon(getActivity().getDrawable(R.drawable.gradelist))
+                .setIcon(getActivity().getDrawable(R.drawable.exam))
                 .setMainText(getString(R.string.exam_message))
                 .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
                     @Override
                     public void onClick() {
-
+                        Intent intent=new Intent(getActivity(), ActivityExamInfo.class);
+                        startActivity(intent);
                     }
                 });
         messageCard.addMessageItem(ItemHome_getExams);

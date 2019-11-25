@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.utopiaxc.urpassistant.sqlite.SQLHelperExamInfo;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperGradesList;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import org.jsoup.Connection;
@@ -328,6 +330,77 @@ public class FunctionsPublicBasic {
             SharedPreferences sharedPreferences=context.getSharedPreferences("Grades",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putBoolean("GradeIsGot",true);
+            editor.commit();
+            sqLiteDatabase.close();
+
+            return true;
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+
+
+    }
+
+    //处理考试信息表的方法
+    public boolean setExamInfo(Context context, String address, String username, String password){
+        if(!getCookies(address,username,password))
+            return false;
+        if(!getDocument(address+"/ksApCxAction.do?oper=getKsapXx"))
+            return false;
+        try{
+            SQLHelperExamInfo sqlHelperExamInfo=new SQLHelperExamInfo(context,"URP",null,2);
+            SQLiteDatabase sqLiteDatabase=sqlHelperExamInfo.getWritableDatabase();
+            sqLiteDatabase.execSQL("delete from exams");
+
+
+            Elements elements_all_course = document.getElementsByClass("odd");
+            for(Element element_single_course:elements_all_course){
+                Elements elements_single_course=element_single_course.getElementsByTag("td");
+                String[] messages_single_sign = new String[20];
+                int flag=0;
+                for(Element element_single_sign:elements_single_course){
+                    messages_single_sign[flag]=element_single_sign.toString();
+                    flag++;
+                }
+
+
+                for(int i=0;i<flag;i++){
+                    messages_single_sign[i]=messages_single_sign[i].replace(" ","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<tdalign=\"center\">","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("</td>","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("&nbsp;","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<palign=\"center\">","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("</p>","");
+                    messages_single_sign[i]=messages_single_sign[i].replace("<td>","");
+                }
+
+
+                ContentValues values=new ContentValues();
+                values.put("ExamName",messages_single_sign[4]);
+                values.put("ExamSchool",messages_single_sign[1]);
+                values.put("ExamBuilding",messages_single_sign[2]);
+                values.put("ExamRoom",messages_single_sign[3]);
+                values.put("ExamData",messages_single_sign[5]);
+                values.put("ExamTime",messages_single_sign[6]);
+
+                sqLiteDatabase.insert("exams",null,values);
+
+            }
+
+            //SQL测试
+            /*
+            Cursor cursor = sqLiteDatabase.query("grades", new String[]{"ClassName","Credit"}, null, null, null, null, null);
+            while(cursor.moveToNext())
+                System.out.println(cursor.getString(cursor.getColumnIndex("ClassName"))
+                        +cursor.getString(cursor.getColumnIndex("Credit")));
+            cursor.close();
+            */
+
+            SharedPreferences sharedPreferences=context.getSharedPreferences("ExamInfo",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putBoolean("ExamInfoIsGot",true);
             editor.commit();
             sqLiteDatabase.close();
 

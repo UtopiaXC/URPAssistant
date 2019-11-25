@@ -1,6 +1,7 @@
 package com.utopiaxc.urpassistant.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.utopiaxc.urpassistant.ActivityMain;
@@ -110,6 +112,7 @@ public class FragmentTimeTableChart extends Fragment {
                         editor_toActivity.commit();
                         Intent intent = new Intent(getActivity(), ActivityMain.class);
                         startActivity(intent);
+                        getActivity().finish();
 
                     }
                 });
@@ -155,6 +158,25 @@ public class FragmentTimeTableChart extends Fragment {
                         .create()
                         .show();
 
+                return true;
+
+            case R.id.fragment_timetable_fast_change:
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                boolean isVisibilty = sharedPreferences.getBoolean("FastChange", false);
+                if (isVisibilty)
+                    editor.putBoolean("FastChange", false);
+                else
+                    editor.putBoolean("FastChange", true);
+
+
+                editor.commit();
+                SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
+                editor_toActivity.putInt("Start", 2);
+                editor_toActivity.commit();
+                Intent intent = new Intent(getActivity(), ActivityMain.class);
+                startActivity(intent);
                 return true;
 
             default:
@@ -245,6 +267,17 @@ public class FragmentTimeTableChart extends Fragment {
 
     //设置切换周按钮
     private void setTextViewButton() {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+        boolean isVisibilty = sharedPreferences.getBoolean("FastChange", false);
+        LinearLayout linearLayout = getActivity().findViewById(R.id.timetable_fast_change);
+        if (isVisibilty) {
+            linearLayout.setVisibility(View.VISIBLE);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+        }
+
+
         textView_frount = getActivity().findViewById(R.id.textView_frount);
         textView_now = getActivity().findViewById(R.id.textView_now);
         textView_next = getActivity().findViewById(R.id.textView_next);
@@ -264,6 +297,7 @@ public class FragmentTimeTableChart extends Fragment {
                 editor_toActivity.commit();
                 Intent intent = new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -276,6 +310,7 @@ public class FragmentTimeTableChart extends Fragment {
                 editor_toActivity.commit();
                 Intent intent = new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -294,7 +329,9 @@ public class FragmentTimeTableChart extends Fragment {
                 editor_toActivity.commit();
                 Intent intent = new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                getActivity().finish();
             }
+
         });
 
     }
@@ -747,7 +784,7 @@ public class FragmentTimeTableChart extends Fragment {
                                         contentValues,
                                         "ClassName = ? and Data=?",
                                         new String[]{name, String.valueOf(day)});
-                            }else
+                            } else
                                 update_handler.sendMessage(update_handler.obtainMessage());
 
                         }
@@ -768,7 +805,7 @@ public class FragmentTimeTableChart extends Fragment {
                                         "ClassName = ? and Data = ?",
                                         new String[]{name, String.valueOf(day)});
 
-                            }else
+                            } else
                                 update_handler.sendMessage(update_handler.obtainMessage());
 
                         }
@@ -798,7 +835,7 @@ public class FragmentTimeTableChart extends Fragment {
         Matcher matcher = pattern.matcher(weeks);
         boolean isMatch = matcher.find();
         if (isMatch || weeks.charAt(0) == ',' || weeks.charAt(weeks.length() - 1) == ',') {
-           return false;
+            return false;
         }
         String week[] = weeks.split(",");
         for (String week_match : week) {
@@ -840,13 +877,13 @@ public class FragmentTimeTableChart extends Fragment {
                 int time_int = Integer.valueOf(time_match);
                 System.out.println(time_int);
                 if (time_int < 0 || time_int > 12) {
-                     return false;
+                    return false;
                 }
                 if (flag)
                     start = time_int;
                 end = time_int;
             } catch (Exception e) {
-                 return false;
+                return false;
             }
         }
         count = end - start - 1;

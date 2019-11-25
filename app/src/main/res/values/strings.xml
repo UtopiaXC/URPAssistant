@@ -97,4 +97,7 @@
     <string name="blank_error">You Have a Required Field Unfilled</string>
     <string name="week_error">Week Message You Inputted Error</string>
     <string name="count_error">Count Message You Inputted Error</string>
+    <string name="week_fast_change">Show/Hide Fast Change Tool</string>
+    <string name="exam_location">Exam Location:</string>
+    <string name="exam_time">Exam Time:</string>
 </resources>
