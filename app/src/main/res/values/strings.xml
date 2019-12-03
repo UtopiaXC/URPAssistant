@@ -101,4 +101,8 @@
     <string name="exam_location">Exam Location:</string>
     <string name="exam_time">Exam Time:</string>
     <string name="week_day">Week</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
 </resources>
