@@ -114,5 +114,6 @@
     <string name="week_fast_change">显示/隐藏快速周切换</string>
     <string name="exam_location">考试地点：</string>
     <string name="exam_time">考试时间：</string>
-    <string name="week_day">星期</string>
+    <string name="week_day">星期：</string>
+    <string name="course_editor">课程编辑</string>
 </resources>

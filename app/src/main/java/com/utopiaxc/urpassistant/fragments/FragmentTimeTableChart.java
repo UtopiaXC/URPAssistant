@@ -1,7 +1,6 @@
 package com.utopiaxc.urpassistant.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -14,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.renderscript.ScriptGroup;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -34,19 +31,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.dd.processbutton.FlatButton;
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
+import com.utopiaxc.urpassistant.activities.ActivityEditor;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import com.zhuangfei.timetable.TimetableView;
 import com.zhuangfei.timetable.listener.ISchedule;
-import com.zhuangfei.timetable.listener.IWeekView;
 import com.zhuangfei.timetable.model.Schedule;
-import com.zhuangfei.timetable.view.WeekView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -521,6 +516,10 @@ public class FragmentTimeTableChart extends Fragment {
 
     //设置旗标监听
     private void setFlagOnClickListenser(int data, int start) {
+        Intent intent=new Intent(getActivity(), ActivityEditor.class);
+        startActivity(intent);
+        getActivity().finish();
+        /*
         android.app.AlertDialog.Builder AddCourse = new android.app.AlertDialog.Builder(getActivity());
         LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_course_editor, null);  //从另外的布局关联组件
 
@@ -643,7 +642,7 @@ public class FragmentTimeTableChart extends Fragment {
                 })
                 .create()
                 .show();
-
+*/
     }
 
     //设置课程编辑框

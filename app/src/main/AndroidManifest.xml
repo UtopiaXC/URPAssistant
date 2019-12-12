@@ -56,6 +56,9 @@
         <activity
             android:name=".activities.ActivityExamInfo"
             android:label="@string/exam_message" />
+        <activity
+            android:name=".activities.ActivityEditor"
+            android:label="@string/course_editor" />
     </application>
 
 </manifest>

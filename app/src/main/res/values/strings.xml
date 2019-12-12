@@ -100,9 +100,7 @@
     <string name="week_fast_change">Show/Hide Fast Change Tool</string>
     <string name="exam_location">Exam Location:</string>
     <string name="exam_time">Exam Time:</string>
-    <string name="week_day">Week</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
+    <string name="week_day">Week:</string>
+    <string name="course_editor">Course Editor</string>
 
 </resources>
