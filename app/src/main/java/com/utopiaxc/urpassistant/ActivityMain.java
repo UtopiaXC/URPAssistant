@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ReceiverCallNotAllowedException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -105,6 +108,8 @@ public class ActivityMain extends AppCompatActivity {
         }
         //开启更新检查线程
         new Thread(new checkupdateRunnable()).start();
+
+
     }
 
     private void setFragment() {

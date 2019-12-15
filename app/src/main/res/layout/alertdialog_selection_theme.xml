@@ -23,14 +23,6 @@
             android:text="@string/purple" />
 
         <RadioButton
-            android:id="@+id/radioButtonWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:text="@string/white" />
-
-        <RadioButton
             android:id="@+id/radioButtonGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

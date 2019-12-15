@@ -18,9 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <receiver android:name=".weidgt.WeidgtChart">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.utopiaxc.urpassistant.weidgt.OnClick"/>
             </intent-filter>
 
             <meta-data

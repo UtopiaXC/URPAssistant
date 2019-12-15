@@ -56,7 +56,6 @@ public class ActivitySettings extends AppCompatActivity {
                         LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_selection_theme, null);  //从另外的布局关联组件
 
                         final RadioButton radioButton_purple = linearLayout.findViewById(R.id.radioButtonPurple);
-                        final RadioButton radioButton_white = linearLayout.findViewById(R.id.radioButtonWhite);
                         final RadioButton radioButton_black = linearLayout.findViewById(R.id.radioButtonBlack);
                         final RadioButton radioButton_green = linearLayout.findViewById(R.id.radioButtonGreen);
                         final RadioButton radioButton_blue = linearLayout.findViewById(R.id.radioButtonBlue);
@@ -72,9 +71,6 @@ public class ActivitySettings extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (radioButton_purple.isChecked()) {
                                             editor.putInt("theme", R.style.AppTheme);
-                                            editor.commit();
-                                        } else if (radioButton_white.isChecked()) {
-                                            editor.putInt("theme", R.style.AppTheme_white);
                                             editor.commit();
                                         } else if (radioButton_black.isChecked()) {
                                             editor.putInt("theme", R.style.AppTheme_black);

@@ -102,5 +102,12 @@
     <string name="exam_time">Exam Time:</string>
     <string name="week_day">Week:</string>
     <string name="course_editor">Course Editor</string>
-
+    <string name="start_time">Start Time:</string>
+    <string name="end_time">End Time:</string>
+    <string name="click_to_choose">Click To Choose</string>
+    <string name="must_to_fill">(Must To Fill)</string>
+    <string name="starter">Start:</string>
+    <string name="ender">End:</string>
+    <string name="please_to_choose_week">Please To Choose Week Day</string>
+    <string name="selected_week">Selected Week Day:</string>
 </resources>
