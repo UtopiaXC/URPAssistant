@@ -3,7 +3,6 @@ package com.utopiaxc.urpassistant.fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
@@ -37,6 +34,7 @@ import com.dd.processbutton.FlatButton;
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.activities.ActivityEditor;
+import com.utopiaxc.urpassistant.activities.ActivityUpdateEditor;
 import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import com.zhuangfei.timetable.TimetableView;
@@ -482,8 +480,12 @@ public class FragmentTimeTableChart extends Fragment {
         TextView textView_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_teacher);
         TextView textView_school = linearLayout.findViewById(R.id.alertdialog_course_message_school);
         TextView textView_room = linearLayout.findViewById(R.id.alertdialog_course_message_room);
+        String name = "";
+        String day = "";
         while (cursor.moveToNext()) {
-            textView_name.setText(getActivity().getText(R.string.course_name) + cursor.getString(cursor.getColumnIndex("ClassName")));
+            day = cursor.getString(cursor.getColumnIndex("Data"));
+            name = cursor.getString(cursor.getColumnIndex("ClassName"));
+            textView_name.setText(getActivity().getText(R.string.course_name) + name);
             textView_id.setText(getActivity().getText(R.string.course_id) + cursor.getString(cursor.getColumnIndex("ClassId")));
             textView_credit.setText(getActivity().getText(R.string.credit) + cursor.getString(cursor.getColumnIndex("Credit")));
             textView_attribute.setText(getActivity().getText(R.string.course_attribute) + cursor.getString(cursor.getColumnIndex("ClassAttribute")));
@@ -497,6 +499,8 @@ public class FragmentTimeTableChart extends Fragment {
             textView_room.setText(getActivity().getText(R.string.room) + cursor.getString(cursor.getColumnIndex("Building")) + cursor.getString(cursor.getColumnIndex("Room")));
             break;
         }
+        String finalName = name;
+        String finalDay = day;
         CourseMessage.setView(linearLayout)
                 .setPositiveButton(getActivity().getText(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
@@ -507,7 +511,22 @@ public class FragmentTimeTableChart extends Fragment {
                 .setNegativeButton(getActivity().getText(R.string.edit), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        setEditView(item.getName(), item.getDay());
+                        Intent intent = new Intent(getActivity(), ActivityUpdateEditor.class);
+                        intent.putExtra("name",item.getName());
+                        intent.putExtra("data",item.getDay());
+                        startActivity(intent);
+                        getActivity().finish();
+
+
+                    }
+                })
+                .setNeutralButton(getActivity().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
+                        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getWritableDatabase();
+                        sqLiteDatabase.delete("classes", "ClassName = ? and Data = ?", new String[]{finalName, String.valueOf(finalDay)});
+                        setTimetableView();
                     }
                 })
                 .create()
@@ -516,194 +535,11 @@ public class FragmentTimeTableChart extends Fragment {
 
     //设置旗标监听
     private void setFlagOnClickListenser(int data, int start) {
-        Intent intent=new Intent(getActivity(), ActivityEditor.class);
-        intent.putExtra("start",start);
-        intent.putExtra("data",data);
+        Intent intent = new Intent(getActivity(), ActivityEditor.class);
+        intent.putExtra("start", start);
+        intent.putExtra("data", data);
         startActivity(intent);
         getActivity().finish();
-    }
-
-    //设置课程编辑框
-    private void setEditView(String name, int day) {
-
-        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
-        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getReadableDatabase();
-        String selection_name = name;
-        String selection_data = String.valueOf(day);
-        Cursor cursor = sqLiteDatabase.query("classes", new String[]{"ClassName", "ClassId", "Credit", "ClassAttribute", "ExamAttribute", "Teacher", "Week", "Data", "Count", "School", "Building", "Room", "Time"}, "ClassName=? and Data=?", new String[]{selection_name, selection_data}, null, null, null);
-
-
-        android.app.AlertDialog.Builder CourseEditor = new android.app.AlertDialog.Builder(getActivity());
-        LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_course_editor, null);  //从另外的布局关联组件
-        EditText textView_name = linearLayout.findViewById(R.id.alertdialog_course_message_editText_name);
-        EditText textView_id = linearLayout.findViewById(R.id.alertdialog_course_message_editText_id);
-        EditText textView_credit = linearLayout.findViewById(R.id.alertdialog_course_message_editText_credit);
-        EditText textView_attribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_attribute);
-        EditText textView_examattribute = linearLayout.findViewById(R.id.alertdialog_course_message_editText_examAttribute);
-        EditText textView_teacher = linearLayout.findViewById(R.id.alertdialog_course_message_editText_teacher);
-        EditText textView_school = linearLayout.findViewById(R.id.alertdialog_course_message_editText_school);
-        EditText textView_room = linearLayout.findViewById(R.id.alertdialog_course_message_editText_room);
-        EditText textView_week = linearLayout.findViewById(R.id.alertdialog_course_message_editText_week);
-        EditText textView_time = linearLayout.findViewById(R.id.alertdialog_course_message_editText_time);
-
-        String courseName = "";
-        String courseData = "";
-
-
-        while (cursor.moveToNext()) {
-            textView_name.setHint(cursor.getString(cursor.getColumnIndex("ClassName")));
-            courseName = cursor.getString(cursor.getColumnIndex("ClassName"));
-            courseData = cursor.getString(cursor.getColumnIndex("Data"));
-            textView_id.setHint(cursor.getString(cursor.getColumnIndex("ClassId")));
-            textView_credit.setHint(cursor.getString(cursor.getColumnIndex("Credit")));
-            textView_attribute.setHint(cursor.getString(cursor.getColumnIndex("ClassAttribute")));
-            textView_examattribute.setHint(cursor.getString(cursor.getColumnIndex("ExamAttribute")));
-            textView_teacher.setHint(cursor.getString(cursor.getColumnIndex("Teacher")));
-            textView_school.setHint(cursor.getString(cursor.getColumnIndex("School")));
-            textView_room.setHint(cursor.getString(cursor.getColumnIndex("Building")) + cursor.getString(cursor.getColumnIndex("Room")));
-            break;
-        }
-
-        CourseEditor.setCancelable(false);
-        CourseEditor.setView(linearLayout)
-                .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
-                        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getWritableDatabase();
-                        if (!textView_name.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("ClassName", textView_name.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_id.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("ClassId", textView_id.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_credit.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("Credit", textView_credit.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_attribute.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("ClassAttribute", textView_attribute.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_examattribute.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("ExamAttribute", textView_examattribute.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-
-                        if (!textView_teacher.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("Teacher", textView_teacher.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_school.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("School", textView_school.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_teacher.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("Teacher", textView_teacher.getText().toString());
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_room.getText().toString().equals("")) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put("Room", textView_room.getText().toString());
-                            contentValues.put("Building", "");
-                            sqLiteDatabase.update("classes",
-                                    contentValues,
-                                    "ClassName = ?",
-                                    new String[]{name});
-                        }
-
-                        if (!textView_week.getText().toString().equals("")) {
-                            if (checkWeek(textView_week.getText().toString())) {
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put("Week", textView_week.getText().toString());
-                                sqLiteDatabase.update("classes",
-                                        contentValues,
-                                        "ClassName = ? and Data=?",
-                                        new String[]{name, String.valueOf(day)});
-                            } else
-                                update_handler.sendMessage(update_handler.obtainMessage());
-
-                        }
-
-                        if (!textView_time.getText().toString().equals("")) {
-                            if (checkTime(textView_time.getText().toString())) {
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put("Time", start);
-                                sqLiteDatabase.update("classes",
-                                        contentValues,
-                                        "ClassName = ? and Data = ?",
-                                        new String[]{name, String.valueOf(day)});
-
-                                ContentValues contentValues1 = new ContentValues();
-                                contentValues.put("Count", count);
-                                sqLiteDatabase.update("classes",
-                                        contentValues1,
-                                        "ClassName = ? and Data = ?",
-                                        new String[]{name, String.valueOf(day)});
-
-                            } else
-                                update_handler.sendMessage(update_handler.obtainMessage());
-
-                        }
-
-                        setTimetableView();
-                        sqLiteDatabase.close();
-                    }
-                })
-                .setNegativeButton(getActivity().getString(R.string.cancel), null)
-                .setNeutralButton(getActivity().getString(R.string.delete), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SQLHelperTimeTable sqlHelperTimeTable = new SQLHelperTimeTable(getActivity(), "URP_timetable", null, 2);
-                        SQLiteDatabase sqLiteDatabase = sqlHelperTimeTable.getWritableDatabase();
-                        sqLiteDatabase.delete("classes", "ClassName = ? and Data = ?", new String[]{name, String.valueOf(day)});
-                        setTimetableView();
-                    }
-                })
-                .create()
-                .show();
     }
 
     //检查周格式

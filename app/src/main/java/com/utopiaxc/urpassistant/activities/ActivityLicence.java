@@ -116,6 +116,23 @@ public class ActivityLicence extends AppCompatActivity {
                     }
                 });
         messageCard.addMessageItem(ItemLicence_TimeTableView);
+
+        AboutPageMessageItem ItemLicence_FlowView=new AboutPageMessageItem(this)
+                .setIcon(getDrawable(R.drawable.developer))
+                .setMainText("FlowLayout")
+                .setDescriptionText("Powered By hongyangAndroid")
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://github.com/hongyangAndroid/FlowLayout/blob/master/LICENSE");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        messageCard.addMessageItem(ItemLicence_FlowView);
     }
 
     //返回键

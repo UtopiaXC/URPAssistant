@@ -61,6 +61,9 @@
         <activity
             android:name=".activities.ActivityEditor"
             android:label="@string/course_editor" />
+        <activity
+            android:name=".activities.ActivityUpdateEditor"
+            android:label="@string/course_editor" />
     </application>
 
 </manifest>
