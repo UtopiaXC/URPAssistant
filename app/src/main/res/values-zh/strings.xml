@@ -24,13 +24,13 @@
     <string name="update_log">更新日志</string>
     <string name="update_log_info">URPAssistant\n
         正式版\n
-        v1.0.1\n
-        URP助手正式发布\n
-        目前可以使用的功能\n
-        #1 课程表\n
-        #2 成绩单\n
-        #3 考试信息\n
-        #4 修改主页、主题、课程表格式\n
+        v2.0.2\n
+        更新日志\n
+        #1 添加了桌面小部件框架（暂不可用）\n
+        #2 将课程编辑UI进行了完全重写\n
+        #3 移除了白色主题\n
+        #4 提高了一些框架的稳定性\n
+        #5 修复了更新检查服务器的故障\n
         \n
         更多功能正在开发，敬请期待\n
         更多信息或提交issue请到Github\n
