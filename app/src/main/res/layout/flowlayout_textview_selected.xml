@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/select_flowlayout_textview_bg"
-    android:paddingBottom="6dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="6dp"
+    android:paddingLeft="15dp"
+    android:paddingTop="8dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="8dp"
     android:text="Helloworld"
     android:textColor="@color/select_flowlayout_textview_color"
-    android:textSize="12sp">
+    android:textSize="18sp">
 
 </TextView>
