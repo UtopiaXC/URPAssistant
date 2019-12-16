@@ -124,4 +124,6 @@
     <string name="ender">结束:</string>
     <string name="please_to_choose_week">请选择星期</string>
     <string name="selected_week">已选中：星期</string>
+    <string name="add_time_error">结束时间不应早于开始时间</string>
+
 </resources>

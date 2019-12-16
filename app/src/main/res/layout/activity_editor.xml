@@ -46,10 +46,9 @@
         <Button
             android:id="@+id/course_weeks_selector"
             android:layout_width="wrap_content"
-            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#00FFFFFF"
+            android:background="@drawable/button_surface"
             android:text="@string/click_to_choose"
             android:textSize="16sp" />
 
@@ -71,10 +70,9 @@
         <Button
             android:id="@+id/course_week_selector"
             android:layout_width="wrap_content"
-            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#00FFFFFF"
+            android:background="@drawable/button_surface"
             android:text="@string/click_to_choose"
             android:textSize="16sp" />
 
@@ -96,10 +94,9 @@
         <Button
             android:id="@+id/course_time_selector"
             android:layout_width="wrap_content"
-            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#00FFFFFF"
+            android:background="@drawable/button_surface"
             android:text="@string/click_to_choose"
             android:textSize="16sp" />
 

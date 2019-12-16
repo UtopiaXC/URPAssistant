@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,13 +19,21 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.utopiaxc.urpassistant.ActivityMain;
 import com.utopiaxc.urpassistant.R;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +48,7 @@ public class ActivityEditor extends AppCompatActivity {
     EditText editText_school;
     EditText editText_room;
     String weeks="";
+    Set<Integer> set;
     int data;
     int start;
     int end;
@@ -105,14 +115,15 @@ public class ActivityEditor extends AppCompatActivity {
                 if(end!=0)
                     numberPicker_end.setValue(end);
                 setCourseTime.setView(linearLayout)
-                        .setTitle("请选择上课时间")
                         .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 start=numberPicker_start.getValue();
                                 end=numberPicker_end.getValue();
-                                if(end>start)
+                                if(end<start) {
+                                    Toast.makeText(context, getString(R.string.add_time_error), Toast.LENGTH_SHORT).show();
                                     return;
+                                }
                                 button_time.setText(getString(R.string.starter)+start+" "+getString(R.string.ender)+end);
                             }
                         })
@@ -159,6 +170,57 @@ public class ActivityEditor extends AppCompatActivity {
                         .setNegativeButton(getString(R.string.cancel),null)
                         .create()
                         .show();
+            }
+        });
+
+        button_weeks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.alertdialog_weeks_selector, null);  //从另外的布局关联组件
+                AlertDialog.Builder setWeeks = new AlertDialog.Builder(context);
+                TagFlowLayout flowLayout=linearLayout.findViewById(R.id.weeks_selector);
+
+                List<String> list = new ArrayList<String>();
+                for(int i=1;i<26;i++)
+                    list.add(String.valueOf(i));
+
+                TagAdapter tagAdapter = new TagAdapter(list) {
+                    @Override
+                    public View getView(FlowLayout parent, int position, Object o) {
+
+                        TextView view = (TextView) View.inflate(context, R.layout.flowlayout_textview_selected, null);
+                        view.setText(list.get(position));
+                        return view;
+                    }
+                };
+                //预先设置选中
+                //tagAdapter.setSelectedList(set);
+
+                flowLayout.setAdapter(tagAdapter);
+
+                //设置最大选中数
+                flowLayout.setMaxSelectCount(-1);
+
+
+
+                setWeeks.setView(linearLayout)
+                        .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                set=flowLayout.getSelectedList();
+                                System.out.println(set);
+                                weeks="";
+                                for(int temp:set)
+                                    weeks+=(temp+1)+",";
+                                weeks=weeks.substring(0,weeks.length()-1);
+                                button_weeks.setText(weeks);
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.cancel),null)
+                        .create()
+                        .show();
+
+
             }
         });
 

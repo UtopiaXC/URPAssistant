@@ -110,4 +110,5 @@
     <string name="ender">End:</string>
     <string name="please_to_choose_week">Please To Choose Week Day</string>
     <string name="selected_week">Selected Week Day:</string>
+    <string name="add_time_error">Ending Time Should\'t Be Earlier Than Starting Ones</string>
 </resources>
