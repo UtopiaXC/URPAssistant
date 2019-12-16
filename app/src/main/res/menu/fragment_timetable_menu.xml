@@ -22,9 +22,17 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/fragment_timetable_show_all"
+        android:orderInCategory="100"
+        android:title="@string/display_or_hide_course"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/fragment_timetable_fast_change"
         android:orderInCategory="100"
         android:title="@string/week_fast_change"
         app:showAsAction="never" />
+
+
 
 </menu>

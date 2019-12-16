@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
@@ -39,6 +40,8 @@ import com.utopiaxc.urpassistant.fuctions.FunctionsPublicBasic;
 import com.utopiaxc.urpassistant.sqlite.SQLHelperTimeTable;
 import com.zhuangfei.timetable.TimetableView;
 import com.zhuangfei.timetable.listener.ISchedule;
+import com.zhuangfei.timetable.listener.OnFlaglayoutClickAdapter;
+import com.zhuangfei.timetable.listener.OnSpaceItemClickAdapter;
 import com.zhuangfei.timetable.model.Schedule;
 
 import java.text.DateFormat;
@@ -171,6 +174,20 @@ public class FragmentTimeTableChart extends Fragment {
                 editor_toActivity.commit();
                 Intent intent = new Intent(getActivity(), ActivityMain.class);
                 startActivity(intent);
+                return true;
+
+            case R.id.fragment_timetable_show_all:
+                SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                boolean isVisibilty1 = sharedPreferences1.getBoolean("HideCourse", false);
+                if (isVisibilty1)
+                    editor1.putBoolean("HideCourse", false);
+                else
+                    editor1.putBoolean("HideCourse", true);
+
+                editor1.commit();
+                Intent intent1 = new Intent(getActivity(), ActivityMain.class);
+                startActivity(intent1);
                 return true;
 
             default:
@@ -396,6 +413,10 @@ public class FragmentTimeTableChart extends Fragment {
 
         }
 
+        SharedPreferences sharedPreferences0 = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+        boolean hideCourse = sharedPreferences0.getBoolean("HideCourse", false);
+        if(hideCourse)
+            timetableView.isShowNotCurWeek(false);
         timetableView.showDateView();
         timetableView.data(schedules)
                 .alpha((float) 50, (float) 0, (float) 100)
@@ -408,6 +429,7 @@ public class FragmentTimeTableChart extends Fragment {
                         }
                     }
                 })
+                .callback(new OnSpaceItemClickAdapter())
                 .callback(new ISchedule.OnFlaglayoutClickListener() {
                     @Override
                     public void onFlaglayoutClick(int day, int start) {
@@ -457,6 +479,8 @@ public class FragmentTimeTableChart extends Fragment {
             editor.commit();
         }
     }
+
+
 
     //设置课程点击监听
     @SuppressLint("SetTextI18n")
@@ -706,5 +730,41 @@ public class FragmentTimeTableChart extends Fragment {
 
         }
     };
+
+
+
+    public class OnSpaceItemClickAdapter implements ISchedule.OnSpaceItemClickListener {
+
+
+        protected LinearLayout flagLayout;
+        protected int itemHeight;
+        protected int itemWidth;
+        protected int monthWidth;
+        protected int marTop;
+        protected int marLeft;
+
+        @Override
+        public void onSpaceItemClick(int day, int start) {
+            //day:从0开始，start：从1开始
+            if(flagLayout==null) return;
+            //itemWidth：是包含了边距的，所以需要减去
+            FrameLayout.LayoutParams lp=new FrameLayout.LayoutParams(itemWidth-marLeft*3,itemHeight);
+            lp.setMargins(monthWidth+day*(itemWidth-marLeft*2)+marLeft*2,(start-1)*(itemHeight+marTop)+marTop,0,0);
+
+            flagLayout.setLayoutParams(lp);
+        }
+
+        @Override
+        public void onInit(LinearLayout flagLayout,int monthWidth, int itemWidth, int itemHeight, int marTop,int marLeft) {
+            this.flagLayout=flagLayout;
+            this.itemHeight=itemHeight;
+            this.itemWidth=itemWidth;
+            this.monthWidth=monthWidth;
+            this.marTop=marTop;
+            this.marLeft=marLeft;
+        }
+    }
+
+
 
 }
