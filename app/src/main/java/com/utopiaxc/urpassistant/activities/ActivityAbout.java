@@ -175,6 +175,23 @@ public class ActivityAbout extends AppCompatActivity {
                         }
                     });
             logoCard.addMessageItem(item3);
+
+            AboutPageMessageItem item4 = new AboutPageMessageItem(this).
+                    setIcon(getDrawable(R.drawable.helper)).
+                    setDescriptionText(getString(R.string.tag_helper_and_solution)).
+                    setMainText(getString(R.string.helper_and_solution)).
+                    setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                        @Override
+                        public void onClick() {
+                            android.app.AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAbout.this);
+                            builder.setMessage(getString(R.string.starting_helper));
+                            builder.setPositiveButton(getText(R.string.confirm), null);
+                            builder.setCancelable(false);
+                            builder.show();
+                        }
+                    });
+            logoCard.addMessageItem(item4);
+
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

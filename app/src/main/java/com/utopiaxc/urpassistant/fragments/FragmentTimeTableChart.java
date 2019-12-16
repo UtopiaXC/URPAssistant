@@ -590,42 +590,6 @@ public class FragmentTimeTableChart extends Fragment {
         return true;
     }
 
-    boolean checkTime(String times) {
-        String reg = "[^0-9~]";
-        Pattern pattern = Pattern.compile(reg);
-        Matcher matcher = pattern.matcher(times);
-        boolean isMatch = matcher.find();
-        if (isMatch || times.charAt(0) == '~' || times.charAt(times.length() - 1) == '~' || !times.contains("~")) {
-            return false;
-        }
-        String time[] = times.split("~");
-        if (time.length != 2) {
-            return false;
-        }
-
-        start = 0;
-        end = 0;
-        boolean flag = true;
-
-        for (String time_match : time) {
-            System.out.println(time_match);
-            try {
-                time_match = time_match.replace("~", "");
-                int time_int = Integer.valueOf(time_match);
-                System.out.println(time_int);
-                if (time_int < 0 || time_int > 12) {
-                    return false;
-                }
-                if (flag)
-                    start = time_int;
-                end = time_int;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        count = end - start - 1;
-        return true;
-    }
 
     //获取课程的线程
     class getClasses implements Runnable {

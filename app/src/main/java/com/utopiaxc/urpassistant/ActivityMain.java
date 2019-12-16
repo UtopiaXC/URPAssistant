@@ -4,16 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ReceiverCallNotAllowedException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.BatteryManager;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.utopiaxc.urpassistant.activities.ActivityAbout;
 import com.utopiaxc.urpassistant.fragments.FragmentAllCourseList;
 import com.utopiaxc.urpassistant.fragments.FragmentCenter;
 import com.utopiaxc.urpassistant.fragments.FragmentHome;
@@ -27,12 +25,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class ActivityMain extends AppCompatActivity {
     private String updateCheak = "";
+    SharedPreferences.Editor editor;
     private FunctionsPublicBasic basicFunctions = new FunctionsPublicBasic();
 
 
@@ -79,32 +76,85 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences =this.getSharedPreferences("APP",this.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
+        boolean isFirst=sharedPreferences.getBoolean("first",true);
+        boolean isVersionFirst=false;
+        editor.putBoolean("first",false);
+        String curVersion="";
+
+        try {
+            curVersion=getPackageManager().getPackageInfo(this.getPackageName(),0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+            curVersion="1.0.0";
+        }
+        String recorded_version=sharedPreferences.getString("version","1.0.0");
+        if(!curVersion.equals(recorded_version)){
+            isVersionFirst=true;
+            editor.putString("version",curVersion);
+        }
+        editor.commit();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        sharedPreferences =this.getSharedPreferences("user",this.MODE_PRIVATE);
+        boolean UserIsSet=sharedPreferences.getBoolean("UserIsSet",false);
+        Boolean AddressIsSet = sharedPreferences.getBoolean("AddressIsSet", false);
+
+
 
         //设置主fragment
         sharedPreferences = getSharedPreferences("FirstFragment", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
 
-        if (sharedPreferences.getInt("Start", 1) == 1) {
-            if (sharedPreferences.getInt("Start_first", 1) == 1) {
-                System.out.println("StartViewByStart1AndStartFirst1");
-                navView.setSelectedItemId(R.id.navigation_home);
-            } else if (sharedPreferences.getInt("Start_first", 1) == 2) {
-                System.out.println("StartViewByStart1AndStartFirst2AndMore");
-                navView.setSelectedItemId(R.id.navigation_table);
+
+        if(!UserIsSet||!AddressIsSet){
+            if(!isFirst) {
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.warning))
+                        .setMessage("您的相关信息未填满")
+                        .setPositiveButton(getString(R.string.confirm), null)
+                        .create()
+                        .show();
             }
-        } else if (sharedPreferences.getInt("Start", 1) == 2) {
-            System.out.println("StartViewByStart2AndMore");
-            editor.putInt("Start", 1);
-            editor.commit();
-            navView.setSelectedItemId(R.id.navigation_table);
-        } else if (sharedPreferences.getInt("Start", 1) == 3) {
-            System.out.println("StartViewByStart3");
             navView.setSelectedItemId(R.id.navigation_notifications);
-            editor.putInt("Start", 1);
-            editor.commit();
+
+        }else {
+            if (sharedPreferences.getInt("Start", 2) == 1) {
+                if (sharedPreferences.getInt("Start_first", 2) == 1) {
+                    System.out.println("StartViewByStart1AndStartFirst1");
+                    navView.setSelectedItemId(R.id.navigation_home);
+                } else if (sharedPreferences.getInt("Start_first", 2) == 2) {
+                    System.out.println("StartViewByStart1AndStartFirst2AndMore");
+                    navView.setSelectedItemId(R.id.navigation_table);
+                }
+            } else if (sharedPreferences.getInt("Start", 2) == 2) {
+                System.out.println("StartViewByStart2AndMore");
+                editor.putInt("Start", 1);
+                editor.commit();
+                navView.setSelectedItemId(R.id.navigation_table);
+            } else if (sharedPreferences.getInt("Start", 2) == 3) {
+                System.out.println("StartViewByStart3");
+                navView.setSelectedItemId(R.id.navigation_notifications);
+                editor.putInt("Start", 1);
+                editor.commit();
+            }
+
+        }
+        if(isVersionFirst){
+            android.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.update_log));
+            builder.setMessage(getString(R.string.update_log_info));
+            builder.setPositiveButton(getText(R.string.confirm), null);
+            builder.setCancelable(false);
+            builder.show();
+        }
+        if(isFirst){
+            android.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.starting_helper));
+            builder.setPositiveButton(getText(R.string.confirm), null);
+            builder.setCancelable(false);
+            builder.show();
         }
         //开启更新检查线程
         new Thread(new checkupdateRunnable()).start();

@@ -112,4 +112,16 @@
     <string name="selected_week">Selected Week Day:</string>
     <string name="add_time_error">Ending Time Should\'t Be Earlier Than Starting Ones</string>
     <string name="display_or_hide_course">Display/Hide Inactive Course</string>
+    <string name="starting_helper">Sorry,your language is not supported.You should change your system language into Chinese
+    and Click Center->Helper And Solution to read.</string>
+    <string name="helper_and_solution">Helper And Solution</string>
+    <string name="tag_helper_and_solution">Please get this in Chinese</string>
+    <string name="sync_all">Sync All From School</string>
+    <string name="syncing">Syncing</string>
+    <string name="all_successful">All Information Is Got！</string>
+    <string name="course_got_error">Courses Did Not Got!\n</string>
+    <string name="exam_got_error">Exam Information Did Not Got!\n</string>
+    <string name="grade_got_error">Grades Did Not Got!\n</string>
+    <string name="get_all_warning_message">If Successful,All The Information You Corrected Yourself Will Be Lost!\n
+    Please Sync Under School NetWork Or Using VPN!</string>
 </resources>

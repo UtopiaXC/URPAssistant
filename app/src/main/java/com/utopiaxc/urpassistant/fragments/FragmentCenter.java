@@ -36,7 +36,10 @@ public class FragmentCenter extends Fragment {
     private FunctionsPublicBasic functions = new FunctionsPublicBasic();
     private boolean isUseful;
     private static ProgressDialog testDialog = null;
-    private Context context;
+    private Context context=getActivity();
+    boolean ClassIsGot=false;
+    boolean ExamIsGot=false;
+    boolean GradeIsGot=false;
 
     //配置FragmentUI
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -163,6 +166,31 @@ public class FragmentCenter extends Fragment {
                     }
                 });
         userCenter.addMessageItem(ItemUserCard_test);
+
+        //添加获取全部选框
+        AboutPageMessageItem ItemUserCard_getAll = new AboutPageMessageItem(getActivity())
+                .setIcon(getActivity().getDrawable(R.drawable.sync_all))
+                .setMainText(getString(R.string.sync_all))
+                .setOnItemClickListener(new AboutPageMessageItem.AboutPageOnItemClick() {
+                    @Override
+                    public void onClick() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder
+                                .setTitle(getActivity().getString(R.string.warning))
+                                .setMessage(getActivity().getString(R.string.get_all_warning_message))
+                                .setNeutralButton(getActivity().getString(R.string.cancel), null)
+                                .setPositiveButton(getActivity().getString(R.string.start), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        testDialog = ProgressDialog.show(getActivity(), getText(R.string.sync_all), getString(R.string.syncing), true);
+                                        new Thread(new sync()).start();
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
+        userCenter.addMessageItem(ItemUserCard_getAll);
     }
 
     //设置中心选框
@@ -210,6 +238,25 @@ public class FragmentCenter extends Fragment {
         }
     }
 
+    //获取线程
+    class sync implements Runnable {
+
+        @Override
+        public void run() {
+            String address = sharedPreferences.getString("address", "");
+            String username = sharedPreferences.getString("username", "");
+            String password = sharedPreferences.getString("password", "");
+            ClassIsGot=functions.setClassTableSQL(getActivity(),address,username,password);
+            ExamIsGot=functions.setExamInfo(getActivity(),address,username,password);
+            GradeIsGot=functions.setGrades(getActivity(),address,username,password);
+
+            messageHandler_getAll.sendMessage(messageHandler_getAll.obtainMessage());
+
+        }
+    }
+
+
+
     //异步消息同步
     @SuppressLint("HandlerLeak")
     private Handler messageHandler = new Handler() {
@@ -237,7 +284,38 @@ public class FragmentCenter extends Fragment {
                         })
                         .create().show();
             }
+
+            }
+
+    };
+
+    //异步消息同步
+    @SuppressLint("HandlerLeak")
+    private Handler messageHandler_getAll = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            testDialog.dismiss();
+            String result = "";
+            if (ClassIsGot && ExamIsGot && GradeIsGot)
+                result = getActivity().getString(R.string.all_successful);
+            if (!ClassIsGot)
+                result+=getActivity().getString(R.string.course_got_error);
+            if (!ExamIsGot)
+                result+=getActivity().getString(R.string.exam_got_error);
+            if (!GradeIsGot)
+                result+=getActivity().getString(R.string.grade_got_error);
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(getActivity().getString(R.string.alert))
+                    .setMessage(result)
+                    .setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create().show();
         }
     };
+
 
 }
