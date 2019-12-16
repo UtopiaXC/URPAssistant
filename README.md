@@ -1,4 +1,4 @@
-<h1>URP Assistant/URP助手<h1>
+<h>URP Assistant/URP助手<h>
   
 <p>本软件是一个基于URP教务系统的综合工具，集成成绩单，课程表等功能。<p>
 
