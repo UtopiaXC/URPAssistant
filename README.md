@@ -5,7 +5,7 @@
 <p>安卓客户端下载：<p></br>
 <p>技术预览版：<a href="http://www.utopiaxc.com/Version_Control/URPAssistant_debug.apk">v1.0.1-beta12<a><p></br>
   
-<p>正式版：暂无<p>
+<p>正式版：<a href="http://www.utopiaxc.com/Version_Control/URPAssistant_debug.apk">v2.0.2<a><p></br>
 
 
 
