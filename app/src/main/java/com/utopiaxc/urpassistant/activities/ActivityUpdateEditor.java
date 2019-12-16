@@ -383,7 +383,7 @@ public class ActivityUpdateEditor extends AppCompatActivity {
                     System.out.println(integer_count);
 
                     ContentValues contentValues1 = new ContentValues();
-                    contentValues.put("Count", integer_count);
+                    contentValues1.put("Count", integer_count);
                     sqLiteDatabase.update("classes",
                             contentValues1,
                             "ClassName = ? and Data = ?",
