@@ -61,9 +61,6 @@ public class FragmentTimeTableChart extends Fragment {
     private FlatButton flatButton_frount;
     private FlatButton flatButton_now;
     private FlatButton flatButton_next;
-    int start;
-    int end;
-    int count;
 
     //设置菜单UI
     @Override
@@ -142,7 +139,7 @@ public class FragmentTimeTableChart extends Fragment {
 
                                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("StartWeek", year + "-" + month + "-" + date);
+                                editor.putString("StartWeek", year + "-" + month + "-" + date + " 12:00:00");
                                 editor.commit();
                                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
@@ -198,7 +195,7 @@ public class FragmentTimeTableChart extends Fragment {
     //FragmentUI创建
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable_chart, container, false);
-
+        System.out.println("fragmentTimeTableChart被创建");
         SharedPreferences sharedPreferences_curWeek = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
         boolean tempWeek = sharedPreferences_curWeek.getBoolean("isCurWeek", true);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
@@ -210,18 +207,20 @@ public class FragmentTimeTableChart extends Fragment {
 
                 try {
 
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//显示的时间的格式
                     Calendar calendar = Calendar.getInstance();
                     calendar.setFirstDayOfWeek(2);
                     int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
-
-
                     calendar.setTime(dateFormat.parse(start));
                     int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                    int start_year=calendar.get(Calendar.YEAR);
+                    calendar.setTime(dateFormat.parse(start_year+"-12-25 00:00:00"));
+                    int sum_start_year_weeks=calendar.get(Calendar.WEEK_OF_YEAR);
                     int weeks = end_week - start_week + 1;
-
-                    if (weeks < 1) {
-                        getActivity().setTitle(getString(R.string.title_table) + "-" + "第1周");
+                    if(weeks<1){
+                            int sum_weeks=sum_start_year_weeks-start_week+end_week+1;
+                            System.out.println(sum_weeks);
+                            getActivity().setTitle(getString(R.string.title_table) + "-" + "第" + sum_weeks + "周");
 
                     } else {
                         getActivity().setTitle(getString(R.string.title_table) + "-" + "第" + weeks + "周");
@@ -296,11 +295,51 @@ public class FragmentTimeTableChart extends Fragment {
         flatButton_frount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int cur = timetableView.curWeek();
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                boolean isCurWeek=true;
+                int curWeek=timetableView.curWeek();
+                if(curWeek==1)
+                    isCurWeek=false;
+
                 editor.putBoolean("isCurWeek", false);
-                editor.putInt("Week", cur - 1);
+
+                SharedPreferences sharedPreferences_curWeek = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+                String start = sharedPreferences_curWeek.getString("StartWeek", "NULL");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//显示的时间的格式
+                if (!isCurWeek) {
+                    try {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setFirstDayOfWeek(2);
+                        int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                        int end_year=calendar.get(Calendar.YEAR);
+                        calendar.setTime(dateFormat.parse(start));
+                        int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                        int start_year=calendar.get(Calendar.YEAR);
+                        int weeks = end_week - start_week + 1;
+
+                        calendar.setTime(dateFormat.parse(start_year+"-12-25 00:00:00"));
+                        int sum_start_year_weeks=calendar.get(Calendar.WEEK_OF_YEAR);
+
+
+                        if (weeks < 1)
+                            if(end_year!=start_year)
+                                editor.putInt("Week", sum_start_year_weeks-start_week+end_week);
+                            else
+                                editor.putInt("Week", 1);
+                        else
+                            editor.putInt("Week", weeks - 1);
+                    } catch (Exception e) {
+                        editor.putInt("Week", 1);
+                        System.out.println("error");
+                    }
+                } else {
+                    int cur = timetableView.curWeek();
+                    System.out.println("else cur test" + cur);
+                    editor.putInt("Week", cur - 1);
+                }
+
                 editor.commit();
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
@@ -328,11 +367,50 @@ public class FragmentTimeTableChart extends Fragment {
         flatButton_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int cur = timetableView.curWeek();
+
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TempWeek", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                int cur = timetableView.curWeek();
+                System.out.println("CurWeek is "+cur);
+                boolean isCurWeek = true;
+                if (cur == 1)
+                    isCurWeek = false;
                 editor.putBoolean("isCurWeek", false);
-                editor.putInt("Week", cur + 1);
+
+                SharedPreferences sharedPreferences_curWeek = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
+                String start = sharedPreferences_curWeek.getString("StartWeek", "NULL");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//显示的时间的格式
+                if (!isCurWeek) {
+                    try {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setFirstDayOfWeek(2);
+                        int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                        int end_year=calendar.get(Calendar.YEAR);
+                        calendar.setTime(dateFormat.parse(start));
+                        int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
+                        int start_year=calendar.get(Calendar.YEAR);
+                        int weeks = end_week - start_week + 1;
+
+                        calendar.setTime(dateFormat.parse(start_year+"-12-25 00:00:00"));
+                        int sum_start_year_weeks=calendar.get(Calendar.WEEK_OF_YEAR);
+
+                        if (weeks < 1)
+                            if(end_year!=start_year)
+                                editor.putInt("Week", sum_start_year_weeks-start_week+end_week+2);
+                            else
+                                editor.putInt("Week", 1);
+                        else
+                            editor.putInt("Week", weeks + 1);
+                    } catch (Exception e) {
+                        editor.putInt("Week", 1);
+                        System.out.println("error");
+                    }
+                } else {
+                    System.out.println("else cur test" + cur);
+                    editor.putInt("Week", cur + 1);
+                }
+
                 editor.commit();
                 SharedPreferences sharedPreferences_toActivity = getActivity().getSharedPreferences("FirstFragment", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor_toActivity = sharedPreferences_toActivity.edit();
@@ -342,7 +420,6 @@ public class FragmentTimeTableChart extends Fragment {
                 startActivity(intent);
                 getActivity().finish();
             }
-
         });
 
     }
@@ -415,7 +492,7 @@ public class FragmentTimeTableChart extends Fragment {
 
         SharedPreferences sharedPreferences0 = getActivity().getSharedPreferences("TimeTable", getActivity().MODE_PRIVATE);
         boolean hideCourse = sharedPreferences0.getBoolean("HideCourse", false);
-        if(hideCourse)
+        if (hideCourse)
             timetableView.isShowNotCurWeek(false);
         timetableView.showDateView();
         timetableView.data(schedules)
@@ -446,26 +523,12 @@ public class FragmentTimeTableChart extends Fragment {
             return;
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//显示的时间的格式
-        try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setFirstDayOfWeek(2);
-            int end_week = calendar.get(Calendar.WEEK_OF_YEAR);
-            calendar.setTime(dateFormat.parse(start));
-            int start_week = calendar.get(Calendar.WEEK_OF_YEAR);
-            if (end_week - start_week < 1) {
-                timetableView.curWeek(1)
-                        .showView();
-                return;
-            }
-            timetableView.curWeek(end_week - start_week + 1)
-                    .showView();
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-            timetableView.curWeek(1)
-                    .showView();
-        }
+
+
+        timetableView.curWeek(start)
+                .showView();
+
         if (!curWeek) {
             int cur = timetableView.curWeek();
             int to_week = sharedPreferences_curWeek.getInt("Week", 1);
@@ -474,12 +537,15 @@ public class FragmentTimeTableChart extends Fragment {
                     .onUpdateDate(cur, to_week);
             timetableView.changeWeekForce(to_week);
             SharedPreferences.Editor editor = sharedPreferences_curWeek.edit();
+
             editor.putBoolean("isCurWeek", true);
+            System.out.println("isCurWeek被修改为true");
+
             editor.commit();
         }
+
+
     }
-
-
 
     //设置课程点击监听
     @SuppressLint("SetTextI18n")
@@ -535,8 +601,8 @@ public class FragmentTimeTableChart extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getActivity(), ActivityUpdateEditor.class);
-                        intent.putExtra("name",item.getName());
-                        intent.putExtra("data",item.getDay());
+                        intent.putExtra("name", item.getName());
+                        intent.putExtra("data", item.getDay());
                         startActivity(intent);
                         getActivity().finish();
 

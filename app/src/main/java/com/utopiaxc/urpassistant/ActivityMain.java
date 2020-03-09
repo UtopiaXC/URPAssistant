@@ -101,8 +101,6 @@ public class ActivityMain extends AppCompatActivity {
         boolean UserIsSet=sharedPreferences.getBoolean("UserIsSet",false);
         Boolean AddressIsSet = sharedPreferences.getBoolean("AddressIsSet", false);
 
-
-
         //设置主fragment
         sharedPreferences = getSharedPreferences("FirstFragment", MODE_PRIVATE);
         editor = sharedPreferences.edit();
