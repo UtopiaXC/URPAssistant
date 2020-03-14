@@ -64,7 +64,7 @@ public class ActivityAbout extends AppCompatActivity {
                 PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
                 String version = packInfo.versionName;
 
-                String latest_version = fuctions.getHTML("http://www.utopiaxc.com/Version_Control/URPAssistant_release.txt");
+                String latest_version = fuctions.getHTML("https://www.utopiaxc.com/Version_Control/URPAssistant_release.txt");
 
 
                 if (latest_version.equals("error")) {
@@ -95,7 +95,7 @@ public class ActivityAbout extends AppCompatActivity {
                 builder.setPositiveButton(getText(R.string.download_newversion), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.utopiaxc.com/Version_Control/URPAssistant_release.apk")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.utopiaxc.com/Version_Control/URPAssistant_release.apk")));
                     }
                 });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { //设定“取消"按钮的功能
